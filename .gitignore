@@ -1,0 +1,17 @@
+
+main.aux
+main.bbl
+main.blg
+main.log
+main.out
+main.synctex.gz
+main.synctex(busy)
+references.bib.sav
+references.bib.bak
+*.log
+*.aux
+*.gz
+*.auxlock
+*.md5
+coverletter_JMP.pdf
+abstract_JMP_vandenBergh.pdf
