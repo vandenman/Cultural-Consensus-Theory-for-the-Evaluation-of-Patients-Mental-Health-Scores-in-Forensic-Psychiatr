@@ -1,4 +1,5 @@
-\documentclass[tikz,convert={outfile=\jobname.svg}]{standalone}
+%\documentclass[tikz,convert={outfile=\jobname.svg}]{standalone}
+\documentclass[tikz]{standalone}
 %\documentclass{article}
 %\documentclass[crop,tikz,convert={outext=.svg,command=\unexpanded{pdf2svg \infile\space\outfile}},multi=false]{standalone}[2012/04/13]
 %\usetikzlibrary{...}% tikz package already loaded by 'tikz' option
@@ -9,8 +10,6 @@
 %\usepackage{tikz} % already loaded
 \usetikzlibrary{bayesnet}
 \usetikzlibrary{shapes.geometric} % needed for squares
-%\usetikzlibrary{external}
-%\tikzexternalize
 
 \usepackage{graphics}
 %\pgfrealjobname{survey}
@@ -20,80 +19,144 @@
 \newcommand{\Iitem}{i}
 \newcommand{\Ipatient}{p}
 \newcommand{\Incat}{c}
+\newcommand{\Ilatent}{l}
 
 \newcommand{\Trater}{\expandafter\MakeUppercase\expandafter{\Irater}}
 \newcommand{\Titem}{\expandafter\MakeUppercase\expandafter{\Iitem}}
 \newcommand{\Tpatient}{\expandafter\MakeUppercase\expandafter{\Ipatient}}
 \newcommand{\Tncat}{\expandafter\MakeUppercase\expandafter{\Incat}}
+\newcommand{\Tlatent}{\expandafter\MakeUppercase\expandafter{\Ilatent}}
 
-\tikzstyle{obs} = [square,fill=gray!25,draw=black,inner sep=1pt,minimum size=20pt, font=\fontsize{10}{10}\selectfont, node distance=1]
+\tikzstyle{obsD} = [square,fill=gray!25,draw=black,inner sep=1pt,minimum size=20pt, font=\fontsize{10}{10}\selectfont, node distance=1]
+\tikzstyle{obsC} = [circle,fill=gray!25,draw=black,inner sep=1pt,minimum size=20pt, font=\fontsize{10}{10}\selectfont, node distance=1]
 
 \begin{document}
-%\beginpgfgraphicnamed{ordinalModel1}
+	
 \begin{tikzpicture}[square/.style={regular polygon,regular polygon sides=4}]
 %\draw [help lines] (-3,-5) grid (3,5);			
 
 % Define nodes
-\node[obs, double distance=1pt]                         (x)   {$x_{\Irater\Iitem}$};
-\node[latent, below = of x, double distance = 1pt]      (d) {$\delta_\Incat$};
-\node[latent, right = of x]                             (a)      {$a_\Irater$};
-\node[latent, right = of d]                             (b)      {$b_\Irater$};
-\node[latent, left  = of d]                             (g) {$\gamma_\Incat$};
+\node[obsD, double distance=1pt]                        (x) {$x_{\Irater\Iitem}$};
+\node[latent, below = of x, double distance = 1pt]      (d) {$\delta_{\Irater\Incat}$};
+\node[latent, right = of x]                             (a) {$a_\Irater$};
+\node[latent, right = of d]                             (b) {$b_\Irater$};
+\node[obsD, left  = of d, double distance = 1pt]        (g) {$\gamma_\Incat$};
 
-\node[latent, above = of x]                             (y) {$y_{\Irater\Iitem}$};
+\node[latent, above = of x, double distance = 1pt]      (y) {$y_{\Irater\Iitem}$};
 \node[latent, above = of y]                             (e) {$\epsilon_{\Irater\Iitem}$};
 \node[latent, left  = of y]                             (t) {$T_\Iitem$};
+\node[latent, right = of e] 						    (E) {$\zeta_\Irater$};
+\node[latent, left  = of e] 						    (tau) {$\kappa_\Iitem$};
 
 % Edges
 \edge {d}       {x};%
 \edge {a, b, g} {d};%
 \edge {t, e}    {y};%
 \edge {y}       {x};%
+\edge {E}       {e};%
+\edge {tau}     {e};%
 
-\plate[text centered] {ni} {(a)(b)(d)(x)(y)(e)}     {$\Trater$ raters };
+\plate[text centered] {ni} {(a)(b)(d)(x)(y)(e)(E)}     {$\Trater$ raters };
 {\tikzset{plate caption/.append style={below=4pt of #1.south west, xshift = .5cm}}
-\plate[text centered, yshift = -.05cm] {ni} {(t)(x)(y)(e)}            {$\Titem$ items  };
+\plate[text centered, yshift = -.05cm] {ni} {(t)(x)(y)(e)(tau)}            {$\Titem$ items  };
 }
 {\tikzset{plate caption/.append style={below=4pt of #1.south west, xshift = .7cm}}
 \plate[text centered, yshift =  .05cm] {nc} {(g)(d)}              {$\Tncat$ options};
 }
+
 \end{tikzpicture}
-%\endpgfgraphicnamed
+
 \begin{tikzpicture}[square/.style={regular polygon,regular polygon sides=4}]
 %\draw [help lines] (-3,-5) grid (3,5);			
 
-%\def\xshift{0.7cm}
-%\def\plateX{.42cm}
-%\def\hab{2.81cm}
-%
-%\def\distxnD{1.5cm}
-
 % Define nodes
-\node[obs, double distance=1pt]                         (x)   {$x_{\Irater\Iitem}$};
-\node[latent, below = of x, double distance = 1pt]      (d) {$\delta_\Incat$};
-\node[latent, right = of x]                             (a)      {$a_\Irater$};
-\node[latent, right = of d]                             (b)      {$b_\Irater$};
-\node[latent, left  = of d]                             (g) {$\gamma_\Incat$};
+\node[obsD, double distance=1pt]                        (x) {$x_{\Irater\Iitem\Ipatient}$};
+\node[latent, below = of x, double distance = 1pt]      (d) {$\delta_{\Irater\Incat}$};
+\node[latent, right = of x]                             (a) {$a_\Irater$};
+\node[latent, right = of d]                             (b) {$b_\Irater$};
+\node[obsD, left  = of d, double distance = 1pt]        (g) {$\gamma_\Incat$};
 
-\node[latent, above = of x]                             (y) {$y_{\Irater\Iitem}$};
-\node[latent, right = of y]                             (e) {$\epsilon_{\Irater}$};
-\node[latent, left  = of y]                             (t) {$T_\Iitem$};
+\node[latent, above = of x]                             (y) {$y_{\Irater\Iitem\Ipatient}$};
+\node[latent, above = of y]                             (e) {$\epsilon_{\Irater\Iitem\Ipatient}$};
+\node[latent, left  = of y]                             (t) {$T_{\Iitem\Ipatient}$};
+
+\node[latent, right = of e] 						    (E) {$\zeta_\Irater$};
+\node[latent, left  = of e] 						    (tau) {$\kappa_{\Iitem\Ipatient}$};
+
+\node[latent, left  = of t] 						    (l) {$\eta_{\Ipatient\Ilatent}$};
 
 % Edges
 \edge {d}       {x};%
 \edge {a, b, g} {d};%
 \edge {t, e}    {y};%
 \edge {y}       {x};%
+\edge {E}       {e};%
+\edge {tau}     {e};%
+\edge {l}       {t};%
 
-\plate[text centered] {ni} {(a)(b)(d)(x)(y)}     {$\Trater$ raters };
-{\tikzset{plate caption/.append style={below=4pt of #1.south west, xshift = .5cm}}
-	\plate[text centered, yshift = -.05cm] {ni} {(t)(x)(y)}            {$\Titem$ items  };
+\plate[text centered] {ni} {(a)(b)(d)(x)(y)(e)(E)}     {$\Trater$ raters };
+{\tikzset{plate caption/.append style={below=4pt of #1.south west, xshift = .6cm}}
+	\plate[text centered] {ni} {(t)(x)(y)(e)(tau)}            {$\Titem$ items  };
 }
-{\tikzset{plate caption/.append style={below=4pt of #1.south west, xshift = .7cm}}
+{\tikzset{plate caption/.append style={below=4pt of #1.south west, xshift = .6cm}}
 	\plate[text centered] {nc} {(g)(d)}              {$\Tncat$ options};
 }
+{\tikzset{plate caption/.append style={below=4pt of #1.south west, xshift = .5cm}}
+	\plate[text centered] {ni} {(t)(x)(y)(e)(l)}            {$\Tpatient$ patients  };
+}
+{\tikzset{plate caption/.append style={below=4pt of #1.south west, xshift = .6cm}}
+	\plate[text centered] {ni} {(l)}     {$\Tlatent$ domains };
+}
 \end{tikzpicture}
-%\endpgfgraphicnamed
+
+\begin{tikzpicture}[square/.style={regular polygon,regular polygon sides=4}]
+%\draw [help lines] (-3,-5) grid (3,5);			
+
+% Define nodes
+\node[obsD, double distance=1pt]                         (x) {$x_{\Irater\Iitem\Ipatient}$};
+\node[latent, below = of x, double distance = 1pt]      (d) {$\delta_{\Irater\Incat}$};
+\node[latent, right = of x]                             (a) {$a_\Irater$};
+\node[latent, right = of d]                             (b) {$b_\Irater$};
+\node[obsD, left  = of d, double distance = 1pt]        (g) {$\gamma_\Incat$};
+
+\node[latent, above = of x]                             (y) {$y_{\Irater\Iitem\Ipatient}$};
+\node[latent, above = of y]                             (e) {$\epsilon_{\Irater\Iitem\Ipatient}$};
+\node[latent, left  = of y]                             (t) {$T_{\Iitem\Ipatient}$};
+
+\node[latent, right = of e] 						    (E) {$\zeta_\Irater$};
+\node[latent, left  = of e] 						    (tau) {$\kappa_{\Iitem\Ipatient}$};
+
+\node[latent, left  = of t] 						    (l) {$\eta_{\Ipatient\Ilatent}$};
+
+\node[obsD,    right = of y, double distance=1pt]       (z)  {$z_{\Irater}$};
+\node[obsD,   above = of l, double distance=1pt]        (w) {$w_{\Ipatient}$};
+
+
+% Edges
+\edge {d}       {x};%
+\edge {a, b, g} {d};%
+\edge {t, e, z} {y};%
+\edge {y}       {x};%
+\edge {E}       {e};%
+\edge {tau}     {e};%
+\edge {l}       {t};%
+\edge {w}       {l};%
+
+\plate[text centered] {ni} {(a)(b)(d)(x)(y)(e)(E)}     {$\Trater$ raters };
+{\tikzset{plate caption/.append style={below=4pt of #1.south west, xshift = .6cm}}
+	\plate[text centered] {ni} {(t)(x)(y)(e)(tau)}            {$\Titem$ items  };
+}
+{\tikzset{plate caption/.append style={below=4pt of #1.south west, xshift = .6cm}}
+	\plate[text centered] {nc} {(g)(d)}              {$\Tncat$ options};
+}
+{\tikzset{plate caption/.append style={below=4pt of #1.south west, xshift = .5cm}}
+	\plate[text centered] {ni} {(t)(x)(y)(e)(l)}            {$\Tpatient$ patients  };
+}
+{\tikzset{plate caption/.append style={below=4pt of #1.south west, xshift = .6cm}}
+	\plate[text centered] {ni} {(l)}     {$\Tlatent$ domains };
+}
+\end{tikzpicture}
+
 \end{document}
 
 

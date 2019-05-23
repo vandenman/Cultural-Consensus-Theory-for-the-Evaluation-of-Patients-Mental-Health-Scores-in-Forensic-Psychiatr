@@ -4,7 +4,7 @@
 
 % packages
 \usepackage{amsmath,amsfonts,amssymb, bm}
-\usepackage{graphicx}
+\usepackage{graphicx,verbatimbox}
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
 \usepackage{apacite}
 \usepackage{authblk}  % for authors
@@ -17,26 +17,34 @@
 \usepackage{color}
 \usepackage{todonotes}
 
-%\usepackage{etoolbox}
-%\makeatletter
-%\patchcmd{\Ginclude@eps}{"#1"}{#1}{}{}
-%\makeatother
 
-\newcommand{\EJ}[1]{\todo[inline, color=green]{EJ: {#1}}}
-\newcommand{\DON}[1]{\todo[inline, color=white]{Don: {#1}}}
+
+\newcommand{\EJ}[1]  {\todo[inline, color=green]{EJ: {#1}}}
+\newcommand{\DON}[1] {\todo[inline, color=white]{Don: {#1}}}
+\newcommand{\DONa}[1]{\todo[        color=white]{Don: {#1}}}
 
 \newcommand{\Irater}{r}
 \newcommand{\Iitem}{i}
 \newcommand{\Ipatient}{p}
 \newcommand{\Incat}{c}
+\newcommand{\Ilatent}{l}
 
 \newcommand{\Trater}{\expandafter\MakeUppercase\expandafter{\Irater}}
 \newcommand{\Titem}{\expandafter\MakeUppercase\expandafter{\Iitem}}
 \newcommand{\Tpatient}{\expandafter\MakeUppercase\expandafter{\Ipatient}}
 \newcommand{\Tncat}{\expandafter\MakeUppercase\expandafter{\Incat}}
+\newcommand{\Tlatent}{\expandafter\MakeUppercase\expandafter{\Ilatent}}
 
 \newcommand{\ilogit}[1]{\text{logit}^{-1}\left(#1\right)}
+\newcommand{\logit}[1]{\text{logit}\left(#1\right)}
+\newcommand{\dnorm}[2]{\text{Normal}\left(#1,\,#2\right)}
+\newcommand{\dgamma}[2]{\text{Gamma}\left(#1,\,#2\right)}
 
+%\newcommand{\dnorm}[2]{\mathcal{N}\left(#1,\,#2\right)}
+%\newcommand{\dgamma}[2]{\mathcal{G}\left(#1,\,#2\right)}
+
+
+\newcommand{\osflink}{\textit{osflink}}
 
 \title{Cultural Consensus Theory for the Evaluation of Patients’ Behavior in Psychiatric  Detention Centers}
 
@@ -50,9 +58,11 @@
 \author[1]{Eric-Jan Wagenmakers}
 \affil[1]{University of Amsterdam}
 \date{}
-
+\renewcommand*{\thefootnote}{\arabic{footnote}}
 \begin{document}
 
+\listoftodos
+\newpage
 \maketitle
 
 \begin{abstract}
@@ -63,7 +73,7 @@ In many psychiatric detention centers, patients' mental health is monitored at r
 
 % Introduction
 
-Psychiatric detention centers monitor the mental health of their patients at regular intervals. A clinician, psychiatrist, or other staff member, henceforth a \textit{rater}, scores a patient on multiple criteria. For example, a rater evaluates a patient's behavior on a variety of criteria that relate to aggressiveness. Next, these ratings of patients' mental health are used for a variety of purposes. For instance, the scores may to help adjust treatment to individual patients; second, the change in scores over time allows for an assessment of treatment effectiveness; third, the scores may warn staff that particular patients are at high risk of turning violent. Moreover, these ratings are key to a quantitative approach of describing and predicting patients' behavior.
+Psychiatric detention centers monitor the mental health of their patients at regular intervals. A clinician, psychiatrist, or other staff member, henceforth a \textit{rater}, scores a patient on multiple criteria. For example, a rater evaluates a patient's behavior on a variety of criteria that relate to aggressiveness. Next, these ratings of patients' mental health are used for a multiple purposes. For instance, the scores may to help adjust treatment to individual patients; second, the change in scores over time allows for an assessment of treatment effectiveness; third, the scores may warn staff that particular patients are at high risk of turning violent. Moreover, these ratings are key to a quantitative approach of monitoring and predicting patients' behavior.
 
 Current practices for aggregating the scores are suboptimal. Evaluations from different raters are averaged, as if they are exchangeable. For example, personal communication with staff of a psychiatric detention center suggested that clinicians are more lenient in their ratings than psychiatrist, but this information is not used to weigh their ratings. Furthermore, different patients are analyzed in isolation, as if they are independent. Any information regarding a patient's criminal offense is not accounted for in a model-based manner. In addition, any uncertainty estimates of the resulting score are usually ignored. \DON{lookup quote}
 
@@ -75,94 +85,148 @@ Here we outline a quantitative program for the analysis of mental health scores 
 \DON{Is het leuk om een korte historische context the geven? Persoonlijk boeit dat mij meestal niet maar sommige lezers zouden het leuk kunnen vinden.}
 Historically, CCT used in context of questionnaires where the `true' answers are unknown and estimated from the data. Examples: ``unknown answer key'', political questionnaire.
 
+In the sections below, first a vanilla CCT model is introduced, which is then expanded.
 
-As a starting point, consider the Cultural Consensus Model for ordinal data as introduced by \citeA{Anders2015cultural}. This model captures differences among raters and items, and may be viewed as the simplest model for a single patient. Here, we use a model for ordinal ratings, but CCT can be applied to continuous data as well \cite<e.g., the LTM;>{batchelder2012cultural}. A graphical model is shown in Figure~\ref{model:CCTO}.
-\begin{figure}
-	\centering
-	\includegraphics[width=.4\textwidth, page=1]{graphicalModels/graphicalModels.pdf}
-	\caption{Graphical model corresponding to the CCT model for a single patient.}
-	\label{model:CCTO}
+
+As a starting point, consider the Latent Truth Rater Model cultural consensus model for ordinal data (LTRM) as introduced by \citeA{Anders2015cultural}. We use a model for ordinal data as ratings are generally given on a Likert scale, but CCT can be applied to continuous data as well \cite<e.g., the LTM;>{batchelder2012cultural}. A graphical model of the LTRM is shown in Figure~\ref{model:LTRM}. The LTRM captures differences among raters and items, and may be viewed as the simplest model for a single patient. 
+\begin{figure}[!ht]
+%	\includegraphics[width=.4\textwidth, page=1]{graphicalModels/graphicalModels.pdf}
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth, page=1]{graphicalModels/graphicalModels.pdf}
+		\end{minipage}\hfill
+	\begin{minipage}{0.5\textwidth}
+		\DON{Hierarchische componenten missen}
+		{\large
+		\begin{align*}
+			x_{\Irater\Iitem} &\leftarrow 
+			\begin{cases}
+			1		&\hspace{-.3cm} \text{if } y_{\Irater\Iitem} \leq \delta_{\Irater 1} \\
+			\Incat	&\hspace{-.3cm} \text{if } \delta_{\Irater, \Incat-1} < y_{\Irater\Iitem} \leq \delta_{\Irater\Incat} \\
+			\Tncat	&\hspace{-.3cm} \text{if } y_{\Irater\Iitem} > \delta_{\Irater, \Tncat-1}
+			\end{cases}\\
+%			x_{\Irater\Iitem} &\sim OL(y_{\Irater\Iitem}, \delta_{\Irater\Incat})\\
+			y_{\Irater\Iitem} &\leftarrow T_\Iitem + \epsilon_{\Irater\Iitem}\\
+			\gamma_\Incat &\leftarrow \logit{\Incat / \Tncat}\\
+			\delta_{\Irater\Incat} &\leftarrow a_\Irater  \gamma_\Incat + b_\Irater\\
+			\sigma^\epsilon_{\Irater\Iitem} &\leftarrow \kappa_\Irater / \zeta_\Irater\\
+			\epsilon_{\Irater\Iitem} &\sim \dnorm{0}{\sigma^\epsilon_{\Irater\Iitem}} \\
+			T_\Iitem &\sim \dnorm{0}{10}\\
+			\zeta_\Irater   &\sim \dgamma{0.01}{0.01} \\
+			\kappa_\Iitem &\sim \dgamma{0.01}{0.01} \\
+			a_\Irater   &\sim \dgamma{0.01}{0.01} \\
+			b_\Irater   &\sim \dnorm{0}{10}
+		\end{align*}
+		}%
+	\end{minipage}
+	\caption{Graphical model corresponding to the LTRM; a CCT model for a single patient. Gray nodes are observed whereas white nodes are unobserved parameters. Square nodes are discrete and circular nodes are continuous. A double border implies that a node is ???.}
+	\label{model:LTRM}
 \end{figure}
 
-To formally introduce the CCT model for the ordinal case, the rating given by rater $\Irater$ on item $\Iitem$ is denoted $x_{\Irater\Iitem}$, and can take on discrete values from $1$ through $\Tncat$. %The discrete outcomes are the result of categorizing a continuous appraisal $y_{\Iitem\Irater}$ using a set of thresholds $\delta_{\Irater\Incat}$. 
-The realization of $x_{\Iitem\Irater}$ is assumed to follow an ordered logistic distribution\footnote{The choice for an ordered logistic distribution is arbitrary and an ordered probit distribution could also be used.} with location $y_{\Iitem\Irater}$ and thresholds $\delta_{\Irater\Incat}$:
-
+The rating given by rater $\Irater$ on item $\Iitem$ is denoted $x_{\Irater\Iitem}$ and takes on discrete values from $1$ through $\Tncat$. \citeA{Anders2015cultural} formalize the core ideas of the LTRM with 6 axioms. There is a latent, shared cultural truth among the raters, which is captured by the item location parameters $T_\Iitem$ (Axiom 1). Since raters are not perfect measurement instruments, they infer a noisy version of the cultural truth for each item, called a latent appraisal and defined as $y_{\Irater\Iitem} = T_\Iitem + \epsilon_{\Irater\Iitem}$, where $\epsilon_{\Irater\Iitem}\sim \dnorm{0}{\sigma^\epsilon_{\Irater\Iitem}}$ (Axiom 2). The standard deviation of the appraisal error $\sigma^\epsilon_{\Irater\Iitem}$ reflects that raters differ in their precision, captured by $\zeta_\Irater$, and that items differ in their difficulty, captured by $\lambda_\Irater$. These two components define the standard deviation, $\sigma^\epsilon_{\Irater\Iitem} = \kappa_\Irater / \zeta_\Irater$ (Axiom 3). Latent appraisals are assumed to be conditionally independent given the latent truth $T_\Iitem$ and the appraisal error $\epsilon_{\Irater\Iitem}$ (Axiom 4). So far, the axioms describe a latent process that underlies each observation. To translate these latent appraisals to observed categorical responses, it is assumed that there exist $\Tncat - 1$ ordered thresholds $\delta_{\Irater\Incat}$, such that each $x_{\Irater\Iitem}$ is generated in the following way (Axiom 5):
 \begin{align*}
-%\text{OrderedLogistic}
-P(x_{\Iitem\Irater}\mid y_{\Iitem\Irater},\delta_{\Irater}) = 
+	x_{\Irater\Iitem} = 
+	\left\{\begin{array}{ll} 
+	1		& \text{if } y_{\Irater\Iitem} \leq \delta_{\Irater 1} \\[4pt]
+	\Incat	& \text{if } \delta_{\Irater, \Incat-1} < y_{\Irater\Iitem} \leq \delta_{\Irater\Incat} \\[4pt]
+	\Tncat	& \text{if } y_{\Irater\Iitem} > \delta_{\Irater, \Tncat-1}
+	\end{array} \right.
+\end{align*}
+In practice the generating process of $x_{\Irater\Iitem}$ is probabilistic and described with an ordered logistic distribution\footnote{The choice for an ordered logistic distribution is arbitrary and an ordered probit distribution could also be used, as was done by \citeA{Anders2015cultural}.}, which gives:
+\begin{align*}
+P(x_{\Irater\Iitem}\mid y_{\Irater\Iitem},\delta_{\Irater}) = 
 \left\{\begin{array}{ll} 
-	1 - \ilogit{(y_{\Iitem\Irater} - \delta_{\Irater 1}}         & \text{if } x_{\Iitem\Irater} = 1, \\[4pt]
-	\ilogit{y_{\Iitem\Irater} - \delta_{\Irater,\Incat-1}} - 
-	\ilogit{y_{\Iitem\Irater} - \delta_{\Irater,\Incat}}         & \text{if } 1 < x_{\Iitem\Irater} < \Tncat,\\[4pt]
-	\ilogit{y_{\Iitem\Irater} - \delta_{\Irater,\Tncat-1}}       & \text{if } x_{\Iitem\Irater} = \Tncat. 
+1 - \ilogit{y_{\Irater\Iitem} - \delta_{\Irater 1}}         & \text{if } x_{\Irater\Iitem} = 1, \\[4pt]
+\ilogit{y_{\Irater\Iitem} - \delta_{\Irater,\Incat-1}} - 
+\ilogit{y_{\Irater\Iitem} - \delta_{\Irater\Incat}}         & \text{if } 1 < x_{\Irater\Iitem} < \Tncat,\\[4pt]
+\ilogit{y_{\Irater\Iitem} - \delta_{\Irater,\Tncat-1}}       & \text{if } x_{\Irater\Iitem} = \Tncat. 
 \end{array} \right.
 \end{align*}
-The ordered logistic distribution uses $\Tncat - 1$ thresholds to assign each of the $\Tncat$ outcomes a probability. This probability is equal to the area between subsequent thresholds for a logistic distribution, as illustrated in Figure~\ref{fig:orderedLogistic}.
-\begin{figure}
+The thresholds $\delta_{\Irater\Incat}$ are not fixed across raters, but accommodate the response biases of the raters. \citeA{Anders2015cultural} do so by estimating $\Tncat-1$ ordered thresholds $\gamma$ and defining $\delta_{\Irater\Incat} = a_\Incat \gamma_\Incat + b_\Incat$ (Axiom 6). This translation of thresholds is called the Linear in Log Odds function and is a useful tool for capturing bias in probability estimation \cite{Fox1995, Gonzalez1999, Anders2015cultural}.
+
+A technical difficulty of estimating $\Tncat-1$ is that the number of thresholds $\gamma_\Incat$ increases with the number of response options. This introduces a large number of parameters that can be difficult to estimate, in particular when some response options are not observed (i.e., when there are ceiling or floor effects). In addition, the model is only identified if the thresholds sum to zero (otherwise adding a constant to $T_\Iitem$ and $\gamma_\Incat$ yields an identical likelihood). Rather than modeling each threshold individually, we model the thresholds as deviances from an initial guess, $\gamma_\Incat = \logit{c/C}$. This yields a set of thresholds such that if the latent appraisal is 0 then $P(x_{\Irater\Iitem})$ is uniform. Response biases are incorporated in the same manner: $\delta_{\Irater\Incat} = a_\Irater\logit{c/C} + b_\Irater$. This simplification can still capture a wide variety of data sets \cite{Selker2019}.
+
+An intuition for how the ordered logistic distribution can model different data sets is given in Figure~\ref{fig:orderedLogistic}. In the left panel, there is no response bias, $a_\Irater = 1$ and $b_\Irater = 0$, which yields ... In the right panel, an increase in response scale, $a_\Irater = 2$, concentrates the responses around the middle outcomes. An increase in response shift, $b_\Irater = .5$ moves the average response towards lower categories. The latent appraisal is the same in both panels.
+\begin{figure}[!ht]
 	\centering
 	\begin{subfigure}{.5\textwidth}
 		\centering
-		\includegraphics[width=\linewidth]{figures/orderedLogisticUnbiased.pdf}
+		\includegraphics[width=.98\textwidth]{figures/orderedLogisticUnbiased.pdf}
 %		\caption{A subfigure}
 %		\label{fig:sub1}
 	\end{subfigure}%
 	\begin{subfigure}{.5\textwidth}
 		\centering
-		\includegraphics[width=\linewidth]{figures/orderedLogisticBiased.pdf}
+		\includegraphics[width=.98\textwidth]{figures/orderedLogisticBiased.pdf}
 %		\caption{A subfigure}
 %		\label{fig:sub2}
 	\end{subfigure}
-	\caption{Ordered Logistic Distribution for $y_{\Iitem\Irater} = 0$ and varying thresholds. The implied probability distribution over categories is shown inside each panel. In the left panel, the thresholds are unbiased, $\alpha_\Irater = 1$, $\beta_\Irater = 0$. As a consequence, the distribution over outcomes is uniform. In the right panel, the thresholds are shifted right and the scale increased slightly, $\alpha_\Irater = 2$, $\beta_\Irater = 0.5$. The distribution over outcomes has most mass on outcomes 2 and 3.}
+	\caption{Ordered Logistic Distribution for $y_{\Irater\Iitem} = 0$ and varying thresholds. The implied probability distribution over categories is shown inside each panel. In the left panel, there is no response bias, $\alpha_\Irater = 1$, $\beta_\Irater = 0$. As a consequence, the distribution over outcomes is uniform. In the right panel, the thresholds are shifted right and the scale increased slightly, $\alpha_\Irater = 2$, $\beta_\Irater = 0.5$. The distribution over outcomes has most mass on outcomes 2 and 3.}
 	\label{fig:orderedLogistic}
 \end{figure}
-\DON{Als ik zo naar het model kijk vraag ik me af waarom we de bias in de latent appraisal nodig hebben, en of deze niet al opgevangen wordt door de rater specifieke thresholds.} The main purpose of the ordered logistic distribution is to translate each observed rating into some latent appraisal score $y_{\Iitem\Irater}$ which can subsequently be linked to patient, rater, and item characteristics. 
-The model contains two components that can capture rater bias. First, the appraisal of a rater for a given item can be biased. Therefore the appraisal is the sum of two components, the true score for an item $T_\Iitem$ and the bias of the rater $\epsilon_\Irater$. This captures that ..., Second, the  thresholds are allowed to differ across raters. An initial guess for the thresholds is $\ilogit{c/C}$. This yields a set of thresholds such that if the latent appraisal is 0 then $P(x_{\Iitem\Irater})$ is uniform.
 
-Starting from an initial guess that the thresholds are distributed uniformly over the logistic distribution (here uniformly means, i.e., the ), 
+The first extension is to allow the model to describe multiple patients. This can be achieved by allowing all item specific parameters to vary across patients ($T_{\Iitem\Ipatient}, \kappa_{\Iitem\Ipatient}$, which induces $\epsilon_{\Irater\Iitem\Ipatient}, y_{\Irater\Iitem\Ipatient}, x_{\Irater\Iitem\Ipatient}$). This implies that the latent cultural truth of an item and the difficulty of an item vary across patients. A second extensions is that we are often not just interested in the latent truth of a single item, but also in a construct that is measured by multiple items. This is essentially a factor model, where a latent construct (e.g., aggressiveness) is measured through multiple items. For this particular application however, the items may contain rater bias which is simultaneously estimated and corrected for. Formally, there are $\Tlatent$ construct captured by latent variables which are indicated by a some items. The measurement model, i.e., which items load on what construct, is assumed to be known. Adding these two concepts to the LTRM model results in the graphical model shown in Figure~\ref{model:LTRM2}.
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=.6\textwidth, page=2]{graphicalModels/graphicalModels.pdf}
+	\caption{Graphical model corresponding to the CCT model for multiple patients.}
+	\label{model:LTRM2}
+\end{figure}
 
-Rather than modeling each of the $\Tncat - 1$ thresholds individually, the thresholds are modeled as a deviation from an unbiased set of thresholds. The thresholds are obtained by shifting and rescaling an unbiased threshold placement to estimate a potentially large number of thresholds instead of needing a parameter per threshold \cite{Fox1995, Gonzalez1999}.
+\DON{Als we het delict in de prior stoppen, dan moet het zo zijn dat elke moordenaar aggressiever is dan elke kindermisbruiker, ongeacht of een moordenaar al 30 jaar vast zit. Dat is wel erg resrictief.}
+A third extension is to add additional information about raters and patients to the model. This would facilitate the model to capture that, for instance, child molesters are less aggressive than murderers. Such patient and raters characteristics could be perceived as covariates and their influence could be captured through a regression. For instance, the crime of a patient can be regressed on each latent variable, allowing the model to capture that child molesters and murderers differ in aggression, but not in say ... \DONa{ik heb eigenlijk geen idee wat ze allemaal meten}. Rater characteristics could be regressed directly on the latent appraisal. Adding covariates to the model results in the graphical model shown in Figure~\ref{model:LTRM3}.
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=.6\textwidth, page=3]{graphicalModels/graphicalModels.pdf}
+	\caption{Graphical model corresponding to the CCT model for multiple patients. Rater characteristics are captured by $z_\Irater$ and patient characteristics are captured by $w_\Ipatient$.}
+	\label{model:LTRM3}
+\end{figure}
 
-vary across raters. Rather than modeling each of the $\Tncat - 1$ thresholds individually, we adopt the approach to 
-
-The thresholds are obtained by shifting and rescaling an unbiased threshold placement to estimate a potentially large number of thresholds instead of needing a parameter per threshold \cite{Fox1995, Gonzalez1999}.
-
- 
-
-The appraisals consists of the latent truth $T_\Iitem$ for each item and the bias of each rater $\epsilon_\Irater$. The thresholds are obtained by shifting and rescaleing 
-
-
-to estimate a potentially large number of thresholds instead of needing a parameter per threshold \cite{Fox1995, Gonzalez1999}.
-
-
-\newpage
-
-
-personen/ raters zijn gebiased. Kan niet alleen eigenschappen van de gedetineerden halen maar ook die van de raters.
-
-Covariaat voor e.g., hulpverleners versus psychiaters. Meerdere groepen raters (fixed effect).
-
-Hierachisch niveau over patienten.
-
-Covariaat voor groepen gedetineerden (fixed effect misdrijf).
-Ofwel order restrictie voor deze groepen.
-
-Missing values?
-
-Hoe combineren we verschillende schalen van items?
-
-kaart van hoe ontwikkelt zich dit over de tijd (zie figuur in proposal)
-
-TODO: change model in NWO proposal to mimic SDT approach.
-
-Data is simulated using R \cite{R} and the posterior distributions are sampled from using Stan \cite{CarpenterEtAl2017Stan}.
+A technical difficult of the LTRM is that some parameters are poorly identified. For instance, given a positive real numbers $c$, $\kappa_\Irater / \zeta_\Irater = (c\kappa_\Irater) / (c\zeta_\Irater)$. Hence, different parameters values may yield an identical likelihood. Such identification problems are avoided by restricting the mean of a parameter vector to 0 whenever necessary.
 
 \section*{Simulation Results}
+
+The sections below illustrate the use  
+
+In all simulations, data was simulated using R \cite{R} and the posterior samples were obtained using Stan \cite{CarpenterEtAl2017Stan}. R files and Stan models are available in the online appendix at \osflink{}.
+
+\subsection*{Parameter Retrieval}
+Before interpreting a model, it is key to assess if its parameters can be accurately retrieved. For this purpose, we simulated a data set of 100 patients, 50 raters, 30 items, and 5 answer categories. A patient specific covariate containing five levels was added to mimic the effect of criminal offense. Similarly, three different categories of raters were assumed, which was also captured as a covariate. The results of the parameter retrieval are shown in Figure~\ref{fig:parameterRecovery}
+
+\begin{figure}[!ht]
+%	\missingfigure{parameter recovery}
+	\centering
+	\includegraphics[width= \textwidth]{figures/parameterRecoveryModel1.pdf}
+	\caption{text}
+	\label{fig:parameterRecovery}
+\end{figure}
+
+\subsection*{Progress Monitoring}
+
+\begin{figure}[!ht]
+	\includegraphics[width=\linewidth]{figures/progressMonitoring.pdf}
+	\caption{text}
+	\label{fig:parameterRecovery}
+\end{figure}
+
+\subsection*{Predictive Performance}
+Here the predictive performance of the LTRM  is compared to that of a mean and as a more informative comparison, to Random Forest and Boosted Regression Trees. Consider the following scenario: some items were not scored for a particular patient, yet 
+
+data is observed for 
+
+
 
 
 \section*{Discussion}
 
 
 A common application of CCT is testing for multiple consensus truths.
+
+\subsection*{Recommendations for clinical practice}
+To successfully apply the LTRM model in practice, several minimum requirements should be met. This is to obtain some minimum quality
+
+Evaluations should be recorded and stored long-term (e.g., multiple years). Ideally, ratings are obtained with high frequency. Additional information, such as the reason of incarceration, should be added to the model.
+
 
 \subsection*{Limitations}
 
@@ -178,3 +242,23 @@ zo min mogelijk missing not at random.
 \bibliography{references}
 
 \end{document}
+
+%\newpage
+%
+%
+%personen/ raters zijn gebiased. Kan niet alleen eigenschappen van de gedetineerden halen maar ook die van de raters.
+%
+%Covariaat voor e.g., hulpverleners versus psychiaters. Meerdere groepen raters (fixed effect).
+%
+%Hierachisch niveau over patienten.
+%
+%Covariaat voor groepen gedetineerden (fixed effect misdrijf).
+%Ofwel order restrictie voor deze groepen.
+%
+%Missing values?
+%
+%Hoe combineren we verschillende schalen van items?
+%
+%kaart van hoe ontwikkelt zich dit over de tijd (zie figuur in proposal)
+%
+%TODO: change model in NWO proposal to mimic SDT approach.
