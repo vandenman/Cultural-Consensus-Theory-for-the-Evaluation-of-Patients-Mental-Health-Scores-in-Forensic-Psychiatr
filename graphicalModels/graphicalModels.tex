@@ -45,7 +45,8 @@
 \node[latent, above = of x, double distance = 1pt]      (y) {$y_{\Irater\Iitem}$};
 \node[latent, above = of y]                             (e) {$\epsilon_{\Irater\Iitem}$};
 \node[latent, left  = of y]                             (t) {$T_\Iitem$};
-\node[latent, right = of e] 						    (E) {$\zeta_\Irater$};
+%\node[latent, right = of e] 						    (E) {$\zeta_\Irater$};
+\node[latent, right = of e, draw = none] 				(E) {};
 \node[latent, left  = of e] 						    (tau) {$\kappa_\Iitem$};
 
 % Edges
@@ -53,7 +54,7 @@
 \edge {a, b, g} {d};%
 \edge {t, e}    {y};%
 \edge {y}       {x};%
-\edge {E}       {e};%
+%\edge {E}       {e};%
 \edge {tau}     {e};%
 
 \plate[text centered] {ni} {(a)(b)(d)(x)(y)(e)(E)}     {$\Trater$ raters };
@@ -123,13 +124,14 @@
 \node[latent, above = of y]                             (e) {$\epsilon_{\Irater\Iitem\Ipatient}$};
 \node[latent, left  = of y]                             (t) {$T_{\Iitem\Ipatient}$};
 
-\node[latent, right = of e] 						    (E) {$\zeta_\Irater$};
+%\node[latent, right = of e] 						    (E) {$\zeta_\Irater$};
+\node[latent, right = of e, draw = none] 				(E) {};
 \node[latent, left  = of e] 						    (tau) {$\kappa_{\Iitem\Ipatient}$};
 
 \node[latent, left  = of t] 						    (l) {$\eta_{\Ipatient\Ilatent}$};
 
-\node[obsD,    right = of y, double distance=1pt]       (z)  {$z_{\Irater}$};
-\node[obsD,   above = of l, double distance=1pt]        (w) {$w_{\Ipatient}$};
+\node[obsD,    right = of y] 						    (z)  {$z_{\Irater}$};
+\node[obsD,   above = of l]  						    (w) {$w_{\Ipatient\Ilatent}$};
 
 
 % Edges
@@ -137,7 +139,7 @@
 \edge {a, b, g} {d};%
 \edge {t, e, z} {y};%
 \edge {y}       {x};%
-\edge {E}       {e};%
+%\edge {E}       {e};%
 \edge {tau}     {e};%
 \edge {l}       {t};%
 \edge {w}       {l};%
@@ -152,10 +154,26 @@
 {\tikzset{plate caption/.append style={below=4pt of #1.south west, xshift = .5cm}}
 	\plate[text centered] {ni} {(t)(x)(y)(e)(l)}            {$\Tpatient$ patients  };
 }
-{\tikzset{plate caption/.append style={below=4pt of #1.south west, xshift = .6cm}}
-	\plate[text centered] {ni} {(l)}     {$\Tlatent$ domains };
+{\tikzset{plate caption/.append style={below=4pt of #1.south west, xshift = .6cm,yshift=0cm}}
+	\plate[text centered, yshift = -.1cm] {ni} {(l)(w)}     {$\Tlatent$ domains };
 }
 \end{tikzpicture}
+
+\begin{tikzpicture}[square/.style={regular polygon,regular polygon sides=4}]
+%\draw [help lines] (-3,-5) grid (3,5);			
+
+\node[latent, double distance = 1pt]                      (lt1) {$T_{1\Ipatient}$};
+\node[latent, right = of lt1, double distance = 1pt]      (lt2) {$T_{2\Ipatient}$};
+\node[latent, right = of lt2, double distance = 1pt]      (lt3) {$T_{\dots\Ipatient}$};
+\node[latent, right = of lt3, double distance = 1pt]      (lt4) {$T_{\Titem-1, \Ipatient}$};
+\node[latent, right = of lt4, double distance = 1pt]      (lt5) {$T_{\Titem\Ipatient}$};
+
+\node[latent, above = of lt3, double distance = 1pt]      (eta) {$\eta_{\Ipatient\Ilatent}$};
+
+% Edges
+\edge {eta}       {lt1, lt2, lt3, lt4, lt5} {$\lambda$};%
+\end{tikzpicture}
+
 
 \end{document}
 
