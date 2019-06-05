@@ -38,8 +38,8 @@
 % Define nodes
 \node[obsD, double distance=1pt]                        (x) {$x_{\Irater\Iitem}$};
 \node[latent, below = of x, double distance = 1pt]      (d) {$\delta_{\Irater\Incat}$};
-\node[latent, right = of x]                             (a) {$a_\Irater$};
-\node[latent, right = of d]                             (b) {$b_\Irater$};
+\node[latent, right = of d]                             (a) {$\alpha_\Irater$};
+\node[latent, right = of x]                             (b) {$\beta_\Irater$};
 \node[obsD, left  = of d, double distance = 1pt]        (g) {$\gamma_\Incat$};
 
 \node[latent, above = of x, double distance = 1pt]      (y) {$y_{\Irater\Iitem}$};
@@ -73,8 +73,8 @@
 % Define nodes
 \node[obsD, double distance=1pt]                        (x) {$x_{\Irater\Iitem\Ipatient}$};
 \node[latent, below = of x, double distance = 1pt]      (d) {$\delta_{\Irater\Incat}$};
-\node[latent, right = of x]                             (a) {$a_\Irater$};
-\node[latent, right = of d]                             (b) {$b_\Irater$};
+\node[latent, right = of d]                             (a) {$\alpha_\Irater$};
+\node[latent, right = of x, xshift = -5.5pt]            (b) {$\beta_\Irater$};
 \node[obsD, left  = of d, double distance = 1pt]        (g) {$\gamma_\Incat$};
 
 \node[latent, above = of x]                             (y) {$y_{\Irater\Iitem\Ipatient}$};
@@ -116,8 +116,8 @@
 % Define nodes
 \node[obsD, double distance=1pt]                         (x) {$x_{\Irater\Iitem\Ipatient}$};
 \node[latent, below = of x, double distance = 1pt]      (d) {$\delta_{\Irater\Incat}$};
-\node[latent, right = of x]                             (a) {$a_\Irater$};
-\node[latent, right = of d]                             (b) {$b_\Irater$};
+\node[latent, right = of d]                             (a) {$\alpha_\Irater$};
+\node[latent, right = of x, xshift = -5.5pt]       		(b) {$\beta_\Irater$};
 \node[obsD, left  = of d, double distance = 1pt]        (g) {$\gamma_\Incat$};
 
 \node[latent, above = of x]                             (y) {$y_{\Irater\Iitem\Ipatient}$};
@@ -137,7 +137,8 @@
 % Edges
 \edge {d}       {x};%
 \edge {a, b, g} {d};%
-\edge {t, e, z} {y};%
+\edge {t, e}    {y};%
+\edge {z}       {b};%
 \edge {y}       {x};%
 %\edge {E}       {e};%
 \edge {tau}     {e};%
