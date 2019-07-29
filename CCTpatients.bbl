@@ -1,0 +1,707 @@
+ \newcommand{\noop}[1]{}
+\begin{thebibliography}{}
+
+\bibitem [\protect \citeauthoryear {%
+Anders%
+\ \BBA {} Batchelder%
+}{%
+Anders%
+\ \BBA {} Batchelder%
+}{%
+{\protect \APACyear {2012}}%
+}]{%
+AndersBatchelder2012}
+\APACinsertmetastar {%
+AndersBatchelder2012}%
+\begin{APACrefauthors}%
+Anders, R.%
+\BCBT {}\ \BBA {} Batchelder, W\BPBI H.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Cultural consensus theory for multiple consensus truths}
+  {Cultural consensus theory for multiple consensus truths}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of Mathematical Psychology}{56}{}{452--469}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Anders%
+\ \BBA {} Batchelder%
+}{%
+Anders%
+\ \BBA {} Batchelder%
+}{%
+{\protect \APACyear {2015}}%
+}]{%
+Anders2015cultural}
+\APACinsertmetastar {%
+Anders2015cultural}%
+\begin{APACrefauthors}%
+Anders, R.%
+\BCBT {}\ \BBA {} Batchelder, W\BPBI H.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2015}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Cultural consensus theory for the ordinal data case}
+  {Cultural consensus theory for the ordinal data case}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Psychometrika}{80}{1}{151--181}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Batchelder%
+\ \BBA {} Anders%
+}{%
+Batchelder%
+\ \BBA {} Anders%
+}{%
+{\protect \APACyear {2012}}%
+}]{%
+batchelder2012cultural}
+\APACinsertmetastar {%
+batchelder2012cultural}%
+\begin{APACrefauthors}%
+Batchelder, W\BPBI H.%
+\BCBT {}\ \BBA {} Anders, R.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Cultural consensus theory: {C}omparing different
+  concepts of cultural truth} {Cultural consensus theory: {C}omparing different
+  concepts of cultural truth}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of {M}athematical
+  {P}sychology}{56}{5}{316--332}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Batchelder%
+\ \BBA {} Romney%
+}{%
+Batchelder%
+\ \BBA {} Romney%
+}{%
+{\protect \APACyear {1986}}%
+}]{%
+Batchelder1986statistical}
+\APACinsertmetastar {%
+Batchelder1986statistical}%
+\begin{APACrefauthors}%
+Batchelder, W\BPBI H.%
+\BCBT {}\ \BBA {} Romney, A\BPBI K.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1986}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The statistical analysis of a general {C}ondorcet model
+  for dichotomous choice situations} {The statistical analysis of a general
+  {C}ondorcet model for dichotomous choice situations}.{\BBCQ}
+\newblock
+\BIn{} G\BPBI O\BPBI E.~B.~Grofman\ (\BED), \APACrefbtitle {Information pooling
+  and group decision making: proceedings of the second University of California
+  Irvine conference on political economy} {Information pooling and group
+  decision making: proceedings of the second university of california irvine
+  conference on political economy}\ (\BPGS\ 103--112).
+\newblock
+\APACaddressPublisher{}{JAI Press Greenwich, CN}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Batchelder%
+\ \BBA {} Romney%
+}{%
+Batchelder%
+\ \BBA {} Romney%
+}{%
+{\protect \APACyear {1988}}%
+}]{%
+batchelder1988test}
+\APACinsertmetastar {%
+batchelder1988test}%
+\begin{APACrefauthors}%
+Batchelder, W\BPBI H.%
+\BCBT {}\ \BBA {} Romney, A\BPBI K.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1988}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Test theory without an answer key} {Test theory without
+  an answer key}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Psychometrika}{53}{1}{71--92}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Blei%
+, Kucukelbir%
+\BCBL {}\ \BBA {} McAuliffe%
+}{%
+Blei%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2017}}%
+}]{%
+blei2017variational}
+\APACinsertmetastar {%
+blei2017variational}%
+\begin{APACrefauthors}%
+Blei, D\BPBI M.%
+, Kucukelbir, A.%
+\BCBL {}\ \BBA {} McAuliffe, J\BPBI D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Variational inference: {A} review for statisticians}
+  {Variational inference: {A} review for statisticians}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of the {A}merican {S}tatistical
+  {A}ssociation}{112}{518}{859--877}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Breiman%
+}{%
+Breiman%
+}{%
+{\protect \APACyear {2001}}%
+}]{%
+breiman2001random}
+\APACinsertmetastar {%
+breiman2001random}%
+\begin{APACrefauthors}%
+Breiman, L.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2001}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Random forests} {Random forests}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Machine Learning}{45}{1}{5--32}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Carpenter%
+\ \protect \BOthers {.}}{%
+Carpenter%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2017}}%
+}]{%
+CarpenterEtAl2017Stan}
+\APACinsertmetastar {%
+CarpenterEtAl2017Stan}%
+\begin{APACrefauthors}%
+Carpenter, B.%
+, Gelman, A.%
+, Hoffman, M.%
+, Lee, D.%
+, Goodrich, B.%
+, Betancourt, M.%
+\BDBL {}Riddell, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Stan: {A} probabilistic programming language} {Stan: {A}
+  probabilistic programming language}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of Statistical Software}{76}{}{1--32}.
+\newblock
+\begin{APACrefURL} \url{https://www.jstatsoft.org/v076/i01} \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.18637/jss.v076.i01} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+{de Beurs}%
+\ \protect \BOthers {.}}{%
+{de Beurs}%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2011}}%
+}]{%
+deBeurs2011ROM}
+\APACinsertmetastar {%
+deBeurs2011ROM}%
+\begin{APACrefauthors}%
+{de Beurs}, E.%
+, {den Hollander-Gijsman}, M\BPBI E.%
+, {van Rood}, Y\BPBI R.%
+, {van der Wee}, N\BPBI J\BPBI A.%
+, Giltay, E\BPBI J.%
+, {van Noorden}, M\BPBI S.%
+\BDBL {}Zitman, F\BPBI G.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2011}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Routine outcome monitoring in the {N}etherlands:
+  {P}ractical experiences with a web-based strategy for the assessment of
+  treatment outcome in clinical practice} {Routine outcome monitoring in the
+  {N}etherlands: {P}ractical experiences with a web-based strategy for the
+  assessment of treatment outcome in clinical practice}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Clinical Psychology \& Psychotherapy}{18}{1}{1--12}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Epskamp%
+, Kruis%
+\BCBL {}\ \BBA {} Marsman%
+}{%
+Epskamp%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2017}}%
+}]{%
+Epskamp2017CarefulWish}
+\APACinsertmetastar {%
+Epskamp2017CarefulWish}%
+\begin{APACrefauthors}%
+Epskamp, S.%
+, Kruis, J.%
+\BCBL {}\ \BBA {} Marsman, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Estimating psychopathological networks: {B}e careful
+  what you wish for} {Estimating psychopathological networks: {B}e careful what
+  you wish for}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Plo{S} one}{12}{6}{e0179891}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Forni%
+, Hallin%
+, Lippi%
+\BCBL {}\ \BBA {} Reichlin%
+}{%
+Forni%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2000}}%
+}]{%
+forni2000generalized}
+\APACinsertmetastar {%
+forni2000generalized}%
+\begin{APACrefauthors}%
+Forni, M.%
+, Hallin, M.%
+, Lippi, M.%
+\BCBL {}\ \BBA {} Reichlin, L.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2000}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The generalized dynamic-factor model: {I}dentification
+  and estimation} {The generalized dynamic-factor model: {I}dentification and
+  estimation}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Review of Economics and statistics}{82}{4}{540--554}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Fox%
+\ \BBA {} Tversky%
+}{%
+Fox%
+\ \BBA {} Tversky%
+}{%
+{\protect \APACyear {1995}}%
+}]{%
+Fox1995}
+\APACinsertmetastar {%
+Fox1995}%
+\begin{APACrefauthors}%
+Fox, C\BPBI R.%
+\BCBT {}\ \BBA {} Tversky, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1995}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Ambiguity aversion and comparative ignorance} {Ambiguity
+  aversion and comparative ignorance}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{The Quarterly Journal of Economics}{110}{3}{585--603}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Friedman%
+}{%
+Friedman%
+}{%
+{\protect \APACyear {2002}}%
+}]{%
+friedman2002stochastic}
+\APACinsertmetastar {%
+friedman2002stochastic}%
+\begin{APACrefauthors}%
+Friedman, J\BPBI H.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2002}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Stochastic gradient boosting} {Stochastic gradient
+  boosting}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Computational Statistics \& Data
+  Analysis}{38}{4}{367--378}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Gelman%
+\ \protect \BOthers {.}}{%
+Gelman%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2014}}%
+}]{%
+GelmanEtAl2014BDA}
+\APACinsertmetastar {%
+GelmanEtAl2014BDA}%
+\begin{APACrefauthors}%
+Gelman, A.%
+, Carlin, J\BPBI B.%
+, Stern, H\BPBI S.%
+, Dunson, D\BPBI B.%
+, Vehtari, A.%
+\BCBL {}\ \BBA {} Rubin, D\BPBI B.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{2014}.
+\newblock
+\APACrefbtitle {{B}ayesian Data Analysis (3rd ed.)} {{B}ayesian data analysis
+  (3rd ed.)}.
+\newblock
+\APACaddressPublisher{Boca Raton (FL)}{Chapman \& Hall/CRC}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Gonzalez%
+\ \BBA {} Wu%
+}{%
+Gonzalez%
+\ \BBA {} Wu%
+}{%
+{\protect \APACyear {1999}}%
+}]{%
+Gonzalez1999}
+\APACinsertmetastar {%
+Gonzalez1999}%
+\begin{APACrefauthors}%
+Gonzalez, R.%
+\BCBT {}\ \BBA {} Wu, G.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1999}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {On the shape of the probability weighting function} {On
+  the shape of the probability weighting function}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Cognitive Psychology}{38}{1}{129--166}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Greenwell%
+, Boehmke%
+, Cunningham%
+\BCBL {}\ \BBA {} Developers%
+}{%
+Greenwell%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2019}}%
+}]{%
+gbmPackage}
+\APACinsertmetastar {%
+gbmPackage}%
+\begin{APACrefauthors}%
+Greenwell, B.%
+, Boehmke, B.%
+, Cunningham, J.%
+\BCBL {}\ \BBA {} Developers, G.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2019}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {gbm: Generalized Boosted Regression Models} {gbm:
+  Generalized boosted regression models}.{\BBCQ}
+\newblock
+\begin{APACrefURL} \url{https://CRAN.R-project.org/package=gbm}
+  \end{APACrefURL}
+\newblock
+\APACrefnote{R package version 2.1.5}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Hajjem%
+, Bellavance%
+\BCBL {}\ \BBA {} Larocque%
+}{%
+Hajjem%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2014}}%
+}]{%
+hajjem2014mixed}
+\APACinsertmetastar {%
+hajjem2014mixed}%
+\begin{APACrefauthors}%
+Hajjem, A.%
+, Bellavance, F.%
+\BCBL {}\ \BBA {} Larocque, D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2014}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Mixed-effects random forest for clustered data}
+  {Mixed-effects random forest for clustered data}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of {S}tatistical {C}omputation and
+  {S}imulation}{84}{6}{1313--1328}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Molenaar%
+}{%
+Molenaar%
+}{%
+{\protect \APACyear {1985}}%
+}]{%
+molenaar1985dynamic}
+\APACinsertmetastar {%
+molenaar1985dynamic}%
+\begin{APACrefauthors}%
+Molenaar, P\BPBI C.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1985}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A dynamic factor model for the analysis of multivariate
+  time series} {A dynamic factor model for the analysis of multivariate time
+  series}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Psychometrika}{50}{2}{181--202}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Plonsky%
+\ \protect \BOthers {.}}{%
+Plonsky%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2019}}%
+}]{%
+plonsky2019predicting}
+\APACinsertmetastar {%
+plonsky2019predicting}%
+\begin{APACrefauthors}%
+Plonsky, O.%
+, Apel, R.%
+, Ert, E.%
+, Tennenholtz, M.%
+, Bourgin, D.%
+, Peterson, J\BPBI C.%
+\BDBL {}others%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2019}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Predicting human decisions with behavioral theories and
+  machine learning} {Predicting human decisions with behavioral theories and
+  machine learning}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{arXiv preprint arXiv:1904.06866}{}{}{}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Plonsky%
+, Erev%
+, Hazan%
+\BCBL {}\ \BBA {} Tennenholtz%
+}{%
+Plonsky%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2017}}%
+}]{%
+plonsky2017psychological}
+\APACinsertmetastar {%
+plonsky2017psychological}%
+\begin{APACrefauthors}%
+Plonsky, O.%
+, Erev, I.%
+, Hazan, T.%
+\BCBL {}\ \BBA {} Tennenholtz, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Psychological forest: {P}redicting human behavior}
+  {Psychological forest: {P}redicting human behavior}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {Thirty-First {AAAI} Conference on Artificial
+  Intelligence.} {Thirty-first {AAAI} conference on artificial intelligence.}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+{R Core Team}%
+}{%
+{R Core Team}%
+}{%
+{\protect \APACyear {2019}}%
+}]{%
+R}
+\APACinsertmetastar {%
+R}%
+\begin{APACrefauthors}%
+{R Core Team}.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2019}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {R: A Language and Environment for Statistical Computing}
+  {R: A language and environment for statistical computing}{\BBCQ}\
+  [\bibcomputersoftwaremanual].
+\newblock
+\APACaddressPublisher{Vienna, Austria}{}.
+\newblock
+\begin{APACrefURL} \url{https://www.R-project.org/} \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Romney%
+, Weller%
+\BCBL {}\ \BBA {} Batchelder%
+}{%
+Romney%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {1986}}%
+}]{%
+romney1986culture}
+\APACinsertmetastar {%
+romney1986culture}%
+\begin{APACrefauthors}%
+Romney, A\BPBI K.%
+, Weller, S\BPBI C.%
+\BCBL {}\ \BBA {} Batchelder, W\BPBI H.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1986}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Culture as consensus: {A} theory of culture and
+  informant accuracy} {Culture as consensus: {A} theory of culture and
+  informant accuracy}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{American Anthropologist}{88}{2}{313--338}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Selker%
+, {van den Bergh}%
+, Criss%
+\BCBL {}\ \BBA {} Wagenmakers%
+}{%
+Selker%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2019}}%
+}]{%
+Selker2019}
+\APACinsertmetastar {%
+Selker2019}%
+\begin{APACrefauthors}%
+Selker, R.%
+, {van den Bergh}, D.%
+, Criss, A\BPBI H.%
+\BCBL {}\ \BBA {} Wagenmakers, E\BHBI J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2019}{May}{08}.
+\newblock
+{\BBOQ}\APACrefatitle {Parsimonious estimation of signal detection models from
+  confidence ratings} {Parsimonious estimation of signal detection models from
+  confidence ratings}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{{B}ehavior {R}esearch {M}ethods}{}{}{}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.3758/s13428-019-01231-3}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.3758/s13428-019-01231-3} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+{Stan Development Team}%
+}{%
+{Stan Development Team}%
+}{%
+{\protect \APACyear {2019}}%
+}]{%
+rstan2019a2192}
+\APACinsertmetastar {%
+rstan2019a2192}%
+\begin{APACrefauthors}%
+{Stan Development Team}.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2019}{}{}.
+\newblock
+\APACrefbtitle {{RStan}: the {R} interface to {Stan}.} {{RStan}: the {R}
+  interface to {Stan}.}
+\newblock
+\begin{APACrefURL} \url{http://mc-stan.org/} \end{APACrefURL}
+\newblock
+\APACrefnote{R package version 2.19.2}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Wright%
+\ \BBA {} Ziegler%
+}{%
+Wright%
+\ \BBA {} Ziegler%
+}{%
+{\protect \APACyear {2017}}%
+}]{%
+ranger2017}
+\APACinsertmetastar {%
+ranger2017}%
+\begin{APACrefauthors}%
+Wright, M\BPBI N.%
+\BCBT {}\ \BBA {} Ziegler, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{ranger}: A Fast Implementation of Random Forests for
+  High Dimensional Data in {C++} and {R}} {{ranger}: A fast implementation of
+  random forests for high dimensional data in {C++} and {R}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of Statistical Software}{77}{1}{1--17}.
+\newblock
+\begin{APACrefDOI} \doi{10.18637/jss.v077.i01} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\end{thebibliography}

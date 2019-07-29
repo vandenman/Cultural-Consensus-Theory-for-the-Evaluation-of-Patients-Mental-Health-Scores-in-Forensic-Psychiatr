@@ -1,0 +1,10 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: CCTpatients.aux
+The style file: apacite.bst
+Database file #1: references.bib
+apacite.bst [2013/07/21 v6.03 APA bibliography style]
+Warning--No journal in gbmPackage
+ptr=1, stack=
+
+---the literal stack isn't empty for entry gbmPackage
+while executing---line 5079 of file apacite.bst
+(There was 1 error message)
