@@ -420,8 +420,7 @@ Gonzalez, R.%
 \bibitem [\protect \citeauthoryear {%
 Greenwell%
 , Boehmke%
-, Cunningham%
-\BCBL {}\ \BBA {} Developers%
+\BCBL {}\ \BBA {} Cunningham%
 }{%
 Greenwell%
 \ \protect \BOthers {.}}{%
@@ -433,15 +432,14 @@ gbmPackage}%
 \begin{APACrefauthors}%
 Greenwell, B.%
 , Boehmke, B.%
-, Cunningham, J.%
-\BCBL {}\ \BBA {} Developers, G.%
+\BCBL {}\ \BBA {} Cunningham, J.%
 \end{APACrefauthors}%
 \unskip\
 \newblock
 \APACrefYearMonthDay{2019}{}{}.
 \newblock
-{\BBOQ}\APACrefatitle {gbm: Generalized Boosted Regression Models} {gbm:
-  Generalized boosted regression models}.{\BBCQ}
+{\BBOQ}\APACrefatitle {gbm: generalized boosted regression models} {gbm:
+  generalized boosted regression models}.{\BBCQ}
 \newblock
 \begin{APACrefURL} \url{https://CRAN.R-project.org/package=gbm}
   \end{APACrefURL}
