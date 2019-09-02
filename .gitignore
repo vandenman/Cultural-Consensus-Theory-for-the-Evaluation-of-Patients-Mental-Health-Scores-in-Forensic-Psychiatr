@@ -1,13 +1,12 @@
 
-main.aux
-main.bbl
-main.blg
-main.log
-main.out
-main.synctex.gz
-main.synctex(busy)
-references.bib.sav
-references.bib.bak
+*.bbl
+*.blg
+*.log
+*.out
+*.synctex.gz
+*.synctex(busy)
+*.bib.sav
+*.bib.bak
 *.log
 *.aux
 *.gz
