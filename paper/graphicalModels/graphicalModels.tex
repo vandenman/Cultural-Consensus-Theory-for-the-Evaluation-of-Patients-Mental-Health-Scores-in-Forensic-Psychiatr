@@ -414,16 +414,66 @@
 \node[latent, right = of t3]               (t4)  {$\ItemTruth_{\Titem\Ipatient}$};
 \node[latent, above = of t2, xshift = 1cm] (eta) {$\FactorScore_{\Ipatient\Ilatent}$};
 
-\draw (eta) -- (t1) node [midway, fill=white, xshift = -.2cm, yshift = .2cm]  {$\FactorRegression_{1}$};
-\draw (eta) -- (t2) node [midway, fill=white, xshift = -.3cm, yshift = 0cm]   {$\FactorRegression_{2}$};
-\draw (eta) -- (t3) node [midway, fill=white, xshift = -.3cm, yshift = -.1cm] {$\FactorRegression_{\dots}$};
-\draw (eta) -- (t4) node [midway, fill=white, xshift = .2cm, yshift = .2cm]   {$\FactorRegression_{\Titem}$};
+\draw (eta) -- (t1) node [midway, fill=white, xshift = -.2cm, 	yshift = .2cm]  {$\FactorRegression_{1}$};
+\draw (eta) -- (t2) node [midway, fill=white, xshift = -.3cm, 	yshift = 0cm]   {$\FactorRegression_{2}$};
+\draw (eta) -- (t3) node [midway, fill=white, xshift = -.3cm, 	yshift = -.1cm]	{$\FactorRegression_{\dots}$};
+\draw (eta) -- (t4) node [midway, fill=white, xshift = .2cm,	yshift = .2cm]  {$\FactorRegression_{\Titem}$};
 
 % Edges
 \edge {eta} {t1, t2, t3, t4}%
 \end{tikzpicture}
 
+\begin{tikzpicture}[square/.style={regular polygon,regular polygon sides=4}]
+%\draw [help lines] (-3,-5) grid (3,5);			
 
+% Define nodes
+\node[obsD, double distance=1pt]                        (x) 	{$x_{\Irater\Iitem\Ipatient}$};
+\node[latent, below = of x, double distance = 1pt]      (d) 	{$\Threshold_{\Irater\Incat}$};
+\node[latent, right = of d, xshift = -.4cm]                             (a) 	{$\RaterScale_\Irater$};
+\node[latent, above = of a, yshift=-.85cm]				(b) 	{$\RaterShift_\Irater$};
+\node[obsD, left  = of d, double distance = 1pt]        (g) 	{$\UnBiasedThreshold_\Incat$};
+
+\node[latent, above = of x]                             (y)		{$\Appraisal_{\Irater\Iitem\Ipatient}$};
+\node[latent, left  = of y]                             (t)		{$\ItemTruth_{\Iitem\Ipatient}$};
+
+\node[latent, right = of y, xshift = -.4cm]			    (zeta) 	{$\zeta_\Irater$};
+\node[latent, below  = of t] 						    (tau) 	{$\ItemDifficulty_{\Iitem\Ipatient}$};
+
+\node[latent, left  = of tau] 						    (l) 	{$\FactorScore_{\Ipatient\Ilatent}$};
+
+%\node[obsD,   above = of b, yshift = +.65cm]		    (z)  	{$\RaterCovariate_{\Irater}$};
+\node[obsD,   above = of b, yshift = -.65cm]		    (z)  	{$\RaterCovariate_{\Irater}$};
+\node[obsD,   above = of l]  						    (w)		{$\PatientCovariate_{\Ipatient}$};
+\node[latent, right = of b, xshift = -.4cm]			    (muz)  	{$\mu_{\RaterShift}$};
+\node[latent, left  = of l, xshift = +.4cm]			    (mueta)	{$\mu_{\FactorScore}$};
+
+
+% Edges
+\edge {d}       	{x};%
+\edge {a, b, g}		{d};%
+\edge {t,zeta, tau} {y};%
+\edge {z, muz}      {b};%
+\edge {y}       	{x};%
+\edge {l}      		{t};%
+\edge {w, mueta}	{l};%
+
+\plate[text centered] {ni} {(a)(b)(d)(x)(z)(y)(zeta)}     {$\Trater$ raters };
+{\tikzset{plate caption/.append style={below=0pt of #1.south west, xshift = .4cm}}
+	\plate[text centered] {ni} {(t)(x)(y)(tau)}            {$\Titem$ items  };
+}
+{\tikzset{plate caption/.append style={below=4pt of #1.south west, xshift = .3cm}}
+	\plate[text centered] {nc} {(g)(d)}              {$\Tncat$ categories};
+}
+{\tikzset{plate caption/.append style={below=13pt of #1.south west, xshift = .5cm, yshift=0cm}}
+	\plate[text centered] {ni} {(t)(x)(y)(l)}            {$\Tpatient$ patients  };
+}
+{\tikzset{plate caption/.append style={below=4pt of #1.south west, xshift = .6cm,yshift=.1cm}}
+	\plate[text centered, yshift = -.1cm] {ni} {(l)}     {$\Tlatent$ domains };
+}
+
+%\plate[text centered] {nzp} {(mueta)}	{$\Tncat$ categories};
+%\plate[text centered] {nzr} {(muz)}		{$\Tncat$ categories};
+\end{tikzpicture}
 
 \end{document}
 
