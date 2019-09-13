@@ -18,11 +18,6 @@ nr <- 300 # no raters
 ni <- 200 # no items
 nc <- 5   # no response options
 
-# nr <- 25  # no raters
-# ni <- 300 # no items
-# nc <- 5   # no response options
-
-
 set.seed(1)
 obsList1 <- simulate(nr, ni, nc)
 datList1 <- list(x = obsList1$x, nr = nr, ni = ni, nc = nc)
