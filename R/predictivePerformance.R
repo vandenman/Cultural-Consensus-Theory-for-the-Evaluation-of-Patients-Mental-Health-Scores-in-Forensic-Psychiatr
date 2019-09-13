@@ -432,14 +432,3 @@ rownames(tb) <- c("Naive", "Informed")
 colnames(tb) <- c("Random Forest", "Boosting")
 print(xtable::xtable(tb))
 
-# old ----
-aa <- as.numeric(as.matrix(datTrain[, -4]))
-dim(aa) <- dim(datTrain) - c(0, 1)
-obj <- xgboost::xgboost(data = aa, label = datTrain[, 4]-1L, nrounds = 2000,
-                        objective = "multi:softprob", num_class = 5, print_every_n = 50)
-bb <- as.numeric(as.matrix(datTest[, -4]))
-dim(bb) <- dim(datTest) - c(0, 1)
-preds0 <- predict(obj, bb)
-preds <- apply(matrix(preds0, nrow(datTest), 5L, TRUE), 1L, which.max)
-confusionTable <- table(preds, datTest[, colnames(datTest) == "Outcome"])
-predAccuracy <- sum(diag(confusionTable)) / sum(confusionTable)

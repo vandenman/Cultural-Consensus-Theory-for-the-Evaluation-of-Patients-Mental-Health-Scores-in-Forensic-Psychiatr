@@ -101,23 +101,3 @@ obsList$designP[c(idx1, idx2)]
 
 # group level means of the latent constructs
 t(obsList$muEta[, obsList$designP[c(idx1, idx2)]])
-
-
-# old ----
-# # pick two patients that appear similar in response patterns
-# similarity <- array(NA, c(np, np, nl))
-# latentMembership <- obsList$latentMembership
-# uni <- unique(latentMembership)
-# for (u in uni) {
-#   idx <- latentMembership == u
-#   for (i in seq_len(np - 1L)) {
-#     for (j in (i + 1L):np) {
-#       tb <- table(c(obsList$x[, idx, i]), c(obsList$x[, idx, j]))
-#       similarity[i, j, u] <- sum(diag(tb)) / sum(tb)
-#     }
-#   }
-# }
-#
-# mostSimilar <- which(similarity == max(similarity, na.rm = TRUE), arr.ind = TRUE)
-# idx1 <- mostSimilar[1L]
-# idx2 <- mostSimilar[2L]

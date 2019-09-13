@@ -28,7 +28,8 @@ plotTrueVsEst <- function(samples, parEst, trueVals, parTrue = parEst, bayesplot
     tru <- tru - mean(tru)
   }
   if (bayesplot || length(est) == 1) {
-   return(bayesplot::mcmc_recover_intervals(x = samples[, idx, drop = FALSE], true = tru))
+    require(bayesplot)
+    return(bayesplot::mcmc_recover_intervals(x = samples[, idx, drop = FALSE], true = tru))
   } else {
   return(
     qplot(tru, est) +
