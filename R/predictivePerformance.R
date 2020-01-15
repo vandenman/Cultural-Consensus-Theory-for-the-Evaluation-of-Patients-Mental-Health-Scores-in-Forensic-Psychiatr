@@ -10,6 +10,17 @@ rstan_options(auto_write = TRUE)
 source("R/simulate.R")
 source("R/utils.R")
 
+getPredictionAccuracy <- function(table) sum(diag(table)) / sum(table)
+
+makeConfusionTable <- function(predictions, observed, maxCategories = 5) {
+
+  r <- 1:maxCategories
+  # we add e.g., 1:5, 1:5 to both observations and predictions so that all outcomes appear in the table
+  # next we substract 1 from the diagonal to remove these observations.
+  return(table(c(r, predictions), c(r, observed)) - diag(1, maxCategories, maxCategories))
+
+}
+
 fitRandomforest <- function(datTrain, datTest) {
 
   tStart <- Sys.time()
@@ -20,8 +31,8 @@ fitRandomforest <- function(datTrain, datTest) {
                           oob.error = TRUE, verbose = TRUE, num.trees = 1e4)
 
   preds <- predict(rfObj, data = datTest[, colnames(datTest) != "Outcome"])
-  confusionTable <- table(preds$predictions, datTest[, colnames(datTest) == "Outcome"])
-  predAccuracy <- sum(diag(confusionTable)) / sum(confusionTable)
+  confusionTable <- makeConfusionTable(preds$predictions, datTest[, colnames(datTest) == "Outcome"])
+  predAccuracy <- getPredictionAccuracy(confusionTable)
   tStop <- Sys.time()
   return(list(
     # trainAccuracy   = sum(diag(rfObj$confusion.matrix)) / sum(rfObj$confusion.matrix),
@@ -129,16 +140,97 @@ fitBoosting <- function(datTrain, datTest, n.trees = 500, cv.folds = 5, shrinkag
   predsProbs <- predict(gbmObj, newdata = datTest[, colnames(datTest) != "Outcome"], n.trees = gbmObj$n.trees,
                     type = "response")
   preds <- apply(predsProbs, 1L, which.max)
-  confusionTable <- table(preds, datTest[, colnames(datTest) == "Outcome"])
-  predAccuracy <- sum(diag(confusionTable)) / sum(confusionTable)
+  confusionTable <- makeConfusionTable(preds, datTest[, colnames(datTest) == "Outcome"])
+  predAccuracy <- getPredictionAccuracy(confusionTable)
   tStop <- Sys.time()
   return(list(
-    # trainAccuracy   = sum(diag(rfObj$confusion.matrix)) / sum(rfObj$confusion.matrix)
     predAccuracy    = predAccuracy,
     confusionTable  = confusionTable,
     gbmObj          = gbmObj,
     time            = tStop - tStart
   ))
+}
+
+fitLTRMsingle <- function(datTrain, datTest, obsList) {
+
+  nr <- obsList$nr
+  ni <- obsList$ni
+  nc <- obsList$nc
+
+  cat("Compiling Stan model...\n")
+  # model <- stan_model("Stan/extendedLTRM_longFormat.stan")
+  model <- stan_model("Stan/LTRM_longFormat.stan")
+
+  np <- obsList$np
+  resultsList <- vector("list", np)
+  tStart <- Sys.time()
+  for (p in seq_len(np)) {
+    cat(sprintf("Starting Variational Bayes patient %d...\n", p))
+
+    # select the pth patient
+    idxPatientTrain <- datTrain[, "Patient"] == p
+    idxPatientTest  <- datTest[, "Patient"] == p
+    nHoldOut <- sum(idxPatientTest)
+
+    datList <- list(
+      nObs              = sum(idxPatientTrain),
+      nMissing          = sum(idxPatientTest),
+      nr = nr, ni = ni, nc = nc,
+      x                 =            datTrain[idxPatientTrain, "Outcome"],
+      idxRater          = as.numeric(datTrain[idxPatientTrain, "Rater"]),
+      idxItem           = as.numeric(datTrain[idxPatientTrain, "Item"]),
+      idxRaterMissing   = as.numeric(datTest[idxPatientTest, "Rater"]),
+      idxItemMissing    = as.numeric(datTest[idxPatientTest, "Item"])
+    )
+
+    # we rerun this because some starting values lead to a crash
+    fit <- structure("Error", class = "try-error")
+    errorNo <- 0L
+    while (inherits(fit, "try-error") && errorNo <= 10L) {
+      cat(sprintf("Try %d...\n", errorNo))
+      fit <- try(vb(model, datList))
+      errorNo <- errorNo + 1L
+    }
+
+    if (inherits(fit, "try-error"))
+      stop("Could not fit model with variational bayes.")
+
+    samples <- as.matrix(fit)
+
+    idxNew <- which(startsWith(colnames(samples), "xPred["))
+
+    preds <- integer(nHoldOut)
+    for (i in seq_along(preds)) {
+      j <- idxNew[i]
+      tb <- table(c(1:5, samples[, j])) # add 1:5 so table always goes from 1-5.
+      preds[i] <- unname(which.max(tb)) # posterior mode (unaffected by the 1-5)
+    }
+    confusionTable <- makeConfusionTable(preds,
+                                         datTest[idxPatientTest, colnames(datTest) == "Outcome"])
+
+    predAccuracy <- getPredictionAccuracy(confusionTable)
+    tStop <- Sys.time()
+    resultsList[[p]] <- list(
+      predAccuracy    = predAccuracy,
+      confusionTable  = confusionTable,
+      patient         = p,
+      errorNo         = errorNo
+    )
+  }
+
+  # combine all results into one list
+  results <- list(
+    resultsList    = resultsList,
+    time           = tStop - tStart,
+    confusionTable = resultsList[[1L]][["confusionTable"]]
+  )
+
+  for (p in 2:np) {
+    results[["confusionTable"]] <- results[["confusionTable"]] + resultsList[[p]][["confusionTable"]]
+  }
+  results[["predAccuracy"]] <- getPredictionAccuracy(results[["confusionTable"]])
+  return(results)
+
 }
 
 fitLTRM <- function(datTrain, datTest, obsList) {
@@ -210,8 +302,9 @@ fitMean <- function(datTrain, datTest) {
   tStart <- Sys.time()
   obs <- tapply(datTrain$Outcome, datTrain[colnames(datTrain) %in% c("Rater", "Item", "Patient")], mean, na.rm = TRUE)
 
-  predsMean <- numeric(nrow(datTest))
-  predsMode <- numeric(nrow(datTest))
+  predsMean   <- numeric(nrow(datTest))
+  predsMedian <- numeric(nrow(datTest))
+  predsMode   <- numeric(nrow(datTest))
   for (o in seq_along(predsMean)) {
 
     r <- datTest$Rater[o]
@@ -225,27 +318,36 @@ fitMean <- function(datTrain, datTest) {
       obs[,  i, p]
     )
 
-    predsMean[o] <- mean(ests, na.rm = TRUE)
-    predsMode[o] <- unname(which.max(table(ests)))
+    predsMean  [o] <- mean(ests, na.rm = TRUE)
+    predsMode  [o] <- unname(which.max(table(ests)))
+    predsMedian[o] <- median(ests, na.rm = TRUE)
 
   }
 
-  confusionTableMean <- table(round(predsMean), datTest[, colnames(datTest) == "Outcome"])
-  confusionTableMode <- table(predsMode, datTest[, colnames(datTest) == "Outcome"])
-  predAccuracyMean <- sum(diag(confusionTableMean)) / sum(confusionTableMean)
-  predAccuracyMode <- sum(diag(confusionTableMode)) / sum(confusionTableMode)
+  confusionTableMean   <- table(round(predsMean), datTest[, colnames(datTest) == "Outcome"])
+  confusionTableMode   <- table(predsMode,        datTest[, colnames(datTest) == "Outcome"])
+  confusionTableMedian <- table(predsMedian,      datTest[, colnames(datTest) == "Outcome"])
+  predAccuracyMean   <- sum(diag(confusionTableMean))   / sum(confusionTableMean)
+  predAccuracyMode   <- sum(diag(confusionTableMode))   / sum(confusionTableMode)
+  predAccuracyMedian <- sum(diag(confusionTableMedian)) / sum(confusionTableMedian)
   tStop <- Sys.time()
-  # return(list(
-  #   predAccuracyMean   = predAccuracyMean,
-  #   predAccuracyMode   = predAccuracyMode,
-  #   confusionTableMean = confusionTableMean,
-  #   confusionTableMode = confusionTableMode
-  # ))
-  #
+  time <- tStop - tStart
   return(list(
-    predAccuracy   = predAccuracyMode,
-    confusionTable = confusionTableMode,
-    time           = tStop - tStart
+    mean = list(
+      predAccuracy   = predAccuracyMean,
+      confusionTable = confusionTableMean,
+      time           = time
+    ),
+    mode = list(
+      predAccuracy   = predAccuracyMode,
+      confusionTable = confusionTableMode,
+      time           = time
+    ),
+    median = list(
+      predAccuracy   = predAccuracyMedian,
+      confusionTable = confusionTableMedian,
+      time           = time
+    )
   ))
 }
 
@@ -257,19 +359,25 @@ fitAllModels <- function(datTrain, datTest, obsList) {
   cat("Boosting\n")
   resGBM  <- fitBoosting(datTrain, datTest)
 
-  # fit the mode estimate
-  cat("Mode\n")
+  # fit the mean and mode estimate
+  cat("Mean + Mode + Median\n")
   resMean <- fitMean(datTrain, datTest)
 
   # fit the extended LTRM
   cat("Extended LTRM\n")
   resLTRM <- fitLTRM(datTrain, datTest, obsList)
 
+  cat("Single-patient LTRM\n")
+  resLTRMsingle <- fitLTRMsingle(datTrain, datTest, obsList)
+
   allRes <- list(
-    resRF   = resRF,
-    resGBM  = resGBM,
-    resMean = resMean,
-    resLTRM = resLTRM
+    resLTRM       = resLTRM,
+    resLTRMsingle = resLTRMsingle,
+    resRF         = resRF,
+    resGBM        = resGBM,
+    resMode       = resMean$mode,
+    resMean       = resMean$mean,
+    resMedian     = resMean$median
   )
   return(allRes)
 }
@@ -296,24 +404,18 @@ datTrain <- datLongFormat[-idxHoldOut, ]
 datTest  <- datLongFormat[idxHoldOut,  ]
 
 results1 <- fitAllModels(datTrain, datTest, obsList)
-
-# # fit the machine learning models
-# resRF   <- fitRandomforest(datTrain, datTest)
-# resGBM  <- fitBoosting(datTrain, datTest)
-#
-# # fit the mode estimate
-# resMean <- fitMean(datTrain, datTest)
-#
-# # fit the extended LTRM
-# resLTRM <- fitLTRM(datTrain, datTest, obsList)
-#
+saveRDS(results1, file = file.path("data", "predictivePerformanceDense.rds"))
+# results1 <- readRDS(file.path("data", "predictivePerformanceDense.rds"))
 
 sapply(results1, `[`, "time")
 sapply(results1, `[`, "predAccuracy")
 sapply(results1, `[`, "confusionTable")
 
 tb <- do.call(rbind, sapply(results1, `[`, "predAccuracy"))
-tb <- cbind.data.frame(c("LTRM", "Random Forest", "Boosting", "Sample Mode"), tb[c(4, 1, 2, 3)])
+tb <- cbind.data.frame(
+  c("Extended-LTRM", "LTRM", "Random Forest", "Boosting", "Sample Mode", "Sample Median", "Sample Mean"),
+  tb
+)
 colnames(tb) <- c("Method", "Prediction Accuracy")
 print(xtable::xtable(tb[order(tb[, 2], decreasing = TRUE), ]), include.rownames = FALSE)
 
@@ -359,6 +461,8 @@ datTrain <- datLongFormatKept[-idxHoldOut, ]
 datTest  <- datLongFormatKept[idxHoldOut,  ]
 
 results2 <- fitAllModels(datTrain, datTest, obsList)
+saveRDS(results2, file = file.path("data", "predictivePerformanceSparse.rds"))
+# results2 <- readRDS(file.path("data", "predictivePerformanceSparse.rds"))
 
 sapply(results2, `[`, "time")
 sapply(results2, `[`, "predAccuracy")
