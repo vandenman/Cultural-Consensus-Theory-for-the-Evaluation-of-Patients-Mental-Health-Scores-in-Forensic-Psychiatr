@@ -398,12 +398,12 @@ The sample mode is the most often observed outcome (since the data are discrete)
 Random Forest and Boosting analyses were done using the R packages \code{ranger} and \code{gbm} respectively \cite{ranger2017, gbmPackage}. We used the default settings for the hyperparameters in both R packages.
 
 \begin{revision}
-Random forest \cite{breiman2001random} and gradient boosted regression trees \cite{Friedman2001greedy} are two tree based machine learning methods.
-They learn from a training data set, and attempt to use their predictions to unknown observations.
+Random Forest \cite{breiman2001random} and gradient boosted regression trees \cite{Friedman2001greedy} are two tree-based machine learning methods.
+They learn from a training data set and attempt to use their predictions to unknown observations.
 Both methods are relatively easy to use.
 For instance, they make no parametric assumptions and their predictions tend to generalize extremely well to new observations, using default settings for their hyperparameters.%
-\footnote{\begin{revision}On \emph{kaggle}, an online platform for machine learning competitions, random forest and boosting are among the most successful machine learning techniques, see \url{https://www.kaggle.com/bigfatdata/what-algorithms-are-most-successful-on-kaggle}.\end{revision}}
-However, both Random forest and boosting also have downsides.
+\footnote{\begin{revision}On \emph{kaggle}, an online platform for machine learning competitions, Random Forest and boosting are among the most successful machine learning techniques, see \url{https://www.kaggle.com/bigfatdata/what-algorithms-are-most-successful-on-kaggle}.\end{revision}}
+However, both Random Forest and boosting also have downsides.
 Both models are so-called black boxes, that is, their parameters are unidentified and do not have a meaningful interpretation. So although their predictions are on point, they cannot answer the \emph{how} or the \emph{why} of the phenomena they predict. Furthermore, these models cannot be simulated from and they do not provide uncertainty estimates.%
 \end{revision}
 
@@ -411,20 +411,6 @@ We simulated two data sets each consisting of 20 raters, 30 items, 50 patients, 
 
 We quantified predictive performance by computing the confusion matrix between \begin{revision}observations in the test set\end{revision} and predicted values; a contingency table with correct predictions on the diagonal. Prediction accuracy is defined as the \begin{revision}proportion of correct predictions\end{revision}.
 
-%\begin{table}[!ht]
-%	\centering
-%	\caption{Prediction accuracy for the LTRM, Random Forest, Boosting, and the sample mode. The LTRM outperforms all other methods, but Random Forest and Boosting perform worse than the sample mode. Since the data are simulated the choices for the simulation settings are somewhat arbitrary, and different settings could yield a very accurate or very inaccurate predictive performance (e.g., by adjusting item difficulty and rater competence). Therefore, the absolute prediction error cannot be interpreted and only a relative comparison should be made. Since there were 5 possible outcomes, an accuracy of $0.2$ corresponds to chance performance.}
-%	\begin{tabular}{lrr}
-%		\toprule
-%		Method        & Dense & Sparse \\
-%		\midrule
-%		LTRM          & 0.52  & 0.46 \\
-%		Sample Mode   & 0.43  & 0.43 \\
-%		Random Forest & 0.42  & 0.42 \\
-%		Boosting      & 0.39  & 0.40 \\
-%		\bottomrule
-%	\end{tabular}
-%\end{table}
 \begin{table}[ht]
 	\centering
 	\caption{Prediction accuracy for the \begin{revision}Extended LTRM, the\end{revision} LTRM, Random Forest, Boosting, \begin{revision}the sample mean, the sample median, \end{revision}and the sample mode. The LTRM outperforms all other methods, but Random Forest and Boosting perform worse than the sample mode. Since the data are simulated the choices for the simulation settings are somewhat arbitrary, and different settings could yield a very accurate or very inaccurate predictive performance (e.g., by adjusting item difficulty and rater competence). Therefore, the absolute prediction error cannot be interpreted and only a relative comparison should be made. Since there were 5 possible outcomes, an accuracy of $0.2$ corresponds to chance performance.}
@@ -432,13 +418,13 @@ We quantified predictive performance by computing the confusion matrix between \
 		\toprule
 		Method & Dense & Sparse \\ 
 		\midrule
-		Extended LTRM & 0.52 & 0.41 \\ 
+		Extended-LTRM & 0.52 & 0.41 \\ 
 		LTRM & 0.46 & 0.34 \\ 
 		Sample Mode & 0.43 & 0.33 \\ 
 		Random Forest & 0.42 & 0.36 \\ 
 		Boosting & 0.41 & 0.35 \\ 
-		Sample Median & 0.23 & 0.11 \\ 
-		Sample Mean & 0.18 & 0.27 \\ 
+		Sample Median & 0.33 & 0.32 \\ 
+		Sample Mean & 0.23 & 0.27 \\ 
 		\bottomrule
 	\end{tabular}
 \end{table}
@@ -451,7 +437,7 @@ In this paper, we extended the Cultural Consensus model developed by \citeA{Ande
 Although the LTRM provided better predictions than black-box machine learning approaches, this is likely because the data were simulated from the LTRM. 
 \begin{revision}%
 In practice, it might be advantageous to combine the results from the LTRM with a machine learning method, as this may improve prediction accuracy. 
-For example, augmenting a Random forest model with features based on psychological theories resulted in a model with better predictions of human decisions than models based on psychological theories or naive machine learning models \cite{plonsky2019predicting, plonsky2017psychological}.%
+For example, augmenting a Random Forest model with features based on psychological theories resulted in a model with better predictions of human decisions than models based on psychological theories or naive machine learning models \cite{plonsky2019predicting, plonsky2017psychological}.%
 \end{revision}
 However, machine learning approaches, despite their predictive power, may result in uninterpretable models which may be undesirable in psychiatric practice where decisions need to be motivated and possibly defended (e.g., when determining whether a treatment is effective or when deciding if a patient should be released). \begin{revision}In addition, the LTRM provides richer information. For example, clinicians or psychiatrists may want to know if they rate very leniently or not. On the other hand, management might be interested in what covariates determine, for instance, the aggressiveness of patients.\end{revision}
 
@@ -459,24 +445,34 @@ Ideally, patients are monitored over some time and data from multiple measuremen
 
 \subsection*{Limitations}
 
-In the LTRM, we assumed that the factor structure is known. In practice, however, this need not be the case. Estimating the factor structure from the data is possible, although such an endeavor shifts the focus of the LTRM to model selection rather than assessing the progress of patients. \begin{revision}Furthermore, we ensured that the factor structure is identified by fixing all loadings to be positive. Strictly speaking, this restriction is stronger than needed to ensure that model is identified. An alternative way is to fit the model without constraints and afterwards relabel such that a factor solution that corresponds to one mode is obtained \cite<e.g., see>{Erosheva2017dealing}.\end{revision} Another more flexible approach is to view the latent true scores of the items as a network \begin{revision}rather than a latent variable model \end{revision}and estimate the relations among the items (but see \citeNP{Epskamp2017CarefulWish} for possible drawbacks).
+In the LTRM, we assumed that the factor structure is known. In practice, however, this need not be the case. Estimating the factor structure from the data is possible, although such an endeavor shifts the focus of the LTRM to model selection rather than assessing the progress of patients. \begin{revision}Furthermore, we ensured that the factor structure is identified by fixing all loadings to be positive. Strictly speaking, this restriction is stronger than needed to ensure that the model is identified. An alternative way is to fit the model without constraints and afterward relabel such that a factor solution that corresponds to one mode is obtained \cite<e.g., see>{Erosheva2017dealing}.\end{revision} Another more flexible approach is to view the latent true scores of the items as a network \begin{revision}rather than a latent variable model \end{revision}and estimate the relations among the items (but see \citeNP{Epskamp2017CarefulWish} for possible drawbacks).
 
 \begin{revision}The generalizability of the reported results is limited due to the small number of simulations. However, we do not believe there is much reason for concern as the characteristics of the simulated data were chosen to mimic those in practice.\end{revision}
 
 Since the posterior distributions were approximated with variational inference, the obtained posterior distributions may be biased. In general, these biases rarely affect the estimated posterior means, but the posterior variance can be underestimated \cite{blei2017variational}. As a consequence, uncertainty intervals may be too narrow. To alleviate this problem, it is relatively straightforward to modify the Stan code in the appendix to use MCMC instead of variational inference (e.g., in the code in the appendix change \code{vb(model)} to \code{sampling(model)} to use MCMC). However, note that MCMC algorithms for the models discussed run for hours to obtain a reasonable number of posterior samples, whereas variational inference finishes after several minutes.
 
+\begin{revision}
+Extreme location parameters $\ItemTruth_{\Iitem\Ipatient}$ are underestimated (e.g., see Figure~\ref{fig:parameterRecoveryELTRM}). There are several ways to circumvent this bias. However, we want to stress that addressing bias should be considered in light of the decisions made based on the estimates. For example, if underestimation is ``worse'' than overestimation a prior could be constructed that results in more overestimation than underestimation.  Alternatively, one could consider interpreting the uncertainty intervals, assuming these have frequentist coverage (e.g., given enough data points or by using a procedure similar to \citeA{yu2018adaptive} or \cite{hoff2019exact}). Nonetheless, shrinkage in the parameter estimates tends to reduce bias on aggregate; Stein’s paradox is a well-known example of this \cite{EfronMorris1977}.
+\end{revision}
+
 \subsection*{Recommendations for clinical practice}
-To successfully apply the extended LTRM in practice, the data should meet several minimum requirements. Although the model accounts for differences between raters, it is best to minimize these differences, for instance through clear scoring instructions.\MR{why?}\DON{see 2nd sentence} Minimizing differences between raters ensures that rater bias is minimal and helps to ensure validity. In addition, there should be overlap among (groups of) raters and the patients they score. That is, patients should be scored by multiple raters in such a way that there are no isolated groups of raters and patients, where one group of raters only rates one group of patients and another group of raters rates a different group of patients. A lack of overlap between two groups complicates a comparison between raters and patients between them. A lack of overlap can be avoided by having rater 1 score patients 1 through 5, having rater 2 score patients 3 through 7, etc. Additional information about patients should be added to the model, such as the reason for incarceration. That should help the extended LTRM to distinguish between groups of patients that differ on these covariates. This also holds for the raters; if certain background variables are suspected of causing rater bias then these should be included in the model.\MR{ok, I get this part. I'm still very unclear on what the patient background info adds if the goal is to produce factor scores, and not to estimate the effect of patient characteristics on those scores, what is added by including them?}%
+To successfully apply the extended LTRM in practice, the data should meet several minimum requirements. 
+\begin{revision}%
+For instance, which rater gave what rating should be recorded, and patient and rater covariates should contain as few missing observations as possible.
+\end{revision}%
+\begin{revision}Furthermore, \end{revision}although the model accounts for differences between raters, it is best to minimize these differences, for instance through clear scoring instructions. Minimizing differences between raters ensures that rater bias is minimal and helps to ensure validity. In addition, there should be overlap among (groups of) raters and the patients they score. That is, patients should be scored by multiple raters in such a way that there are no isolated groups of raters and patients, where one group of raters only rates one group of patients and another group of raters rates a different group of patients. A lack of overlap between two groups complicates a comparison between raters and patients between them. A lack of overlap can be avoided by having rater 1 score patients 1 through 5, having rater 2 score patients 3 through 7, etc. Additional information about patients should be added to the model, such as the reason for incarceration. That should help the extended LTRM to distinguish between groups of patients that differ on these covariates. This also holds for the raters; if certain background variables are suspected of causing rater bias then these should be included in the model.
 
 \begin{revision}
-An important step in applying the any model is assessing its fit to the data.
+An important step in applying any model is assessing its fit to the data.
 There are at least two options for doing so with the extended LTRM.
 First, a traditional approach is to take the residuals of the extended LTRM and examine these for any leftover structure.
 As in linear models, there should be no structure in the residuals if the model accurately describes the data.
-Second, one could compare the predictive performance of the LTRM to that of a machine learning toolbox (e.g., Random forest or Boosting).
-The data set is split into a training set and a validation set. Subsequently the models are fitted to the training set and are evaluated on the validation set.
-This provides an idea of how much fit is lossed by using a parametric model (the extended LTRM) opposed to a nonparametric alternative (a machine learning toolbox).
-\end{revision}
+Second, one could compare the predictive performance of the LTRM to that of a machine learning toolbox (e.g., Random Forest or Boosting).
+The data set is split into a training set and a validation set. 
+Subsequently, the models are fitted to the training set and are evaluated on the validation set.
+This provides an idea of how much fit is lost by using a parametric model (the extended LTRM) as opposed to a nonparametric alternative (a machine learning toolbox).
+\end{revision}%
+
 
 \subsection*{Conclusion}
 We extended the Latent Truth Rater model (LTRM) introduced by \citeA{Anders2015cultural} to a model that can be applied to patients' mental health scores in forensic psychiatric hospitals. The model accounts for individual differences between raters, items, and patients. We demonstrated that the extended LTRM can provide more information about the data at hand than the raw means for two fictitious patients. In addition, we have shown that the parameters of the extended LTRM can be adequately retrieved and that the LTRM outperforms the observed mode and several machine learning toolboxes in terms of predictive power. Finally, we have provided recommendations for clinical practitioners who wish to apply the LTRM in practice. \begin{revision}Altogether, we believe the extended LTRM constitutes a promising approach for the analysis of mental health scores in forensic psychiatric hospitals.\end{revision}

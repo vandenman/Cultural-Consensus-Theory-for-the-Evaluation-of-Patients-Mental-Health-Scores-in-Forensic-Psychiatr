@@ -449,7 +449,6 @@ for (r in seq_len(nr)) {
   ii <- idxRated[, r] > np
   idxRated[ii, r] <- (idxRated[ii, r] %% np)
 }
-# idxRated <- (idxRated %% 50L) + 1L # mod 50 to wrap 51 to 0 and + 1 to make 0 into 1
 table(idxRated)
 
 idx <- integer()
