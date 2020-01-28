@@ -12,8 +12,10 @@ source("R/utils.R")
 
 getPredictionAccuracy <- function(table) sum(diag(table)) / sum(table)
 
-makeConfusionTable <- function(predictions, observed, maxCategories = 5) {
+makeConfusionTable <- function(predictions, observed, maxCategories = 5, round = FALSE) {
 
+  if (round)
+    predictions <- round(predictions)
   r <- 1:maxCategories
   # we add e.g., 1:5, 1:5 to both observations and predictions so that all outcomes appear in the table
   # next we substract 1 from the diagonal to remove these observations.
@@ -324,12 +326,15 @@ fitMean <- function(datTrain, datTest) {
 
   }
 
-  confusionTableMean   <- table(round(predsMean), datTest[, colnames(datTest) == "Outcome"])
-  confusionTableMode   <- table(predsMode,        datTest[, colnames(datTest) == "Outcome"])
-  confusionTableMedian <- table(predsMedian,      datTest[, colnames(datTest) == "Outcome"])
-  predAccuracyMean   <- sum(diag(confusionTableMean))   / sum(confusionTableMean)
-  predAccuracyMode   <- sum(diag(confusionTableMode))   / sum(confusionTableMode)
-  predAccuracyMedian <- sum(diag(confusionTableMedian)) / sum(confusionTableMedian)
+  confusionTableMean   <- makeConfusionTable(predsMean,   datTest[, colnames(datTest) == "Outcome"], round = TRUE)
+  confusionTableMode   <- makeConfusionTable(predsMode,   datTest[, colnames(datTest) == "Outcome"])
+  confusionTableMedian <- makeConfusionTable(predsMedian, datTest[, colnames(datTest) == "Outcome"], round = TRUE)
+  # confusionTableMean   <- table(round(predsMean),   datTest[, colnames(datTest) == "Outcome"])
+  # confusionTableMode   <- table(predsMode,          datTest[, colnames(datTest) == "Outcome"])
+  # confusionTableMedian <- table(round(predsMedian), datTest[, colnames(datTest) == "Outcome"])
+  predAccuracyMean   <- getPredictionAccuracy(confusionTableMean)
+  predAccuracyMode   <- getPredictionAccuracy(confusionTableMode)
+  predAccuracyMedian <- getPredictionAccuracy(confusionTableMedian)
   tStop <- Sys.time()
   time <- tStop - tStart
   return(list(
@@ -418,6 +423,7 @@ tb <- cbind.data.frame(
 )
 colnames(tb) <- c("Method", "Prediction Accuracy")
 print(xtable::xtable(tb[order(tb[, 2], decreasing = TRUE), ]), include.rownames = FALSE)
+tb1 <- tb
 
 # Sparse data: all rater rate 10 patients ----
 # the first simulation is somewhat biased because many raters rate almost all patients.
@@ -469,10 +475,18 @@ sapply(results2, `[`, "predAccuracy")
 sapply(results2, `[`, "confusionTable")
 
 tb <- do.call(rbind, sapply(results2, `[`, "predAccuracy"))
-tb <- cbind.data.frame(c("LTRM", "Random Forest", "Boosting", "Sample Mode"), tb[c(4, 1, 2, 3)])
+tb <- cbind.data.frame(
+  c("Extended-LTRM", "LTRM", "Random Forest", "Boosting", "Sample Mode", "Sample Mean", "Sample Median"),
+  tb
+)
+  # c("LTRM", "Random Forest", "Boosting", "Sample Mode"), tb[c(4, 1, 2, 3)])
 colnames(tb) <- c("Method", "Prediction Accuracy")
 print(xtable::xtable(tb[order(tb[, 2], decreasing = TRUE), ]), include.rownames = FALSE)
+tb2 <- tb
 
+tb_both <- cbind(tb1, tb2[match(tb1[, 1], tb2[, 1]), 2])
+colnames(tb_both)[2:3] <- c("Dense", "Sparse")
+print(xtable::xtable(tb_both[order(tb_both[, 2], decreasing = TRUE), ]), include.rownames = FALSE)
 
 # Informed ML: MAP estimates as features for ML algorithms ----
 # setup from dense data
