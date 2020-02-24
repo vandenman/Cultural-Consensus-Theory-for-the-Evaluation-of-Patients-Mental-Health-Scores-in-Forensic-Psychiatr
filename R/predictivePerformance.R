@@ -416,9 +416,14 @@ sapply(results1, `[`, "time")
 sapply(results1, `[`, "predAccuracy")
 sapply(results1, `[`, "confusionTable")
 
+nms <- cbind(
+  c("resLTRM.predAccuracy", "resLTRMsingle.predAccuracy", "resRF.predAccuracy", "resGBM.predAccuracy", "resMode.predAccuracy", "resMean.predAccuracy", "resMedian.predAccuracy"),
+  c("Extended-LTRM",        "LTRM",                       "Random Forest",      "Boosting",            "Sample Mode",          "Sample Mean",          "Sample Median")
+)
+
 tb <- do.call(rbind, sapply(results1, `[`, "predAccuracy"))
 tb <- cbind.data.frame(
-  c("Extended-LTRM", "LTRM", "Random Forest", "Boosting", "Sample Mode", "Sample Median", "Sample Mean"),
+  nms[match(rownames(tb), nms[, 1]), 2],
   tb
 )
 colnames(tb) <- c("Method", "Prediction Accuracy")
@@ -473,9 +478,14 @@ sapply(results2, `[`, "time")
 sapply(results2, `[`, "predAccuracy")
 sapply(results2, `[`, "confusionTable")
 
+nms <- cbind(
+  c("resLTRM.predAccuracy", "resLTRMsingle.predAccuracy", "resRF.predAccuracy", "resGBM.predAccuracy", "resMode.predAccuracy", "resMean.predAccuracy", "resMedian.predAccuracy"),
+  c("Extended-LTRM",        "LTRM",                       "Random Forest",      "Boosting",            "Sample Mode",          "Sample Mean",          "Sample Median")
+)
+
 tb <- do.call(rbind, sapply(results2, `[`, "predAccuracy"))
 tb <- cbind.data.frame(
-  c("Extended-LTRM", "LTRM", "Random Forest", "Boosting", "Sample Mode", "Sample Mean", "Sample Median"),
+  nms[match(rownames(tb), nms[, 1]), 2],
   tb
 )
   # c("LTRM", "Random Forest", "Boosting", "Sample Mode"), tb[c(4, 1, 2, 3)])
