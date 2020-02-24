@@ -31,7 +31,8 @@
 
 % Probability distributions
 
-\newcommand{\ilogit}[1]{\text{logit}^{-1}\left(#1\right)}
+%\newcommand{\ilogit}[1]{\text{logit}^{-1}\left(#1\right)}
+\newcommand{\ilogit}[1]{\begin{revision}F\end{revision}\left(#1\right)}
 \newcommand{\logit}[1]{\text{logit}\left(#1\right)}
 \newcommand{\dnorm}[2]{\text{Normal}\left(#1,\,#2\right)}
 \newcommand{\dnormp}[2]{\text{Normal\textsuperscript{+}}\left(#1,\,#2\right)}
@@ -47,6 +48,9 @@
 \newcommand{\SE}[1]{\emph{({#1})}}
 \newcommand{\code}[1]{\texttt{#1}}
 
+% spaces
+\newcommand{\Reals}{\mathbb{R}}
+\newcommand{\PositiveReals}{\Reals^+}
 
 % abbreviation Anders & Batchelder (2015)
 \newcommand{\AB}{AB}

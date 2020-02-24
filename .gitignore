@@ -17,3 +17,4 @@ abstract_JMP_vandenBergh.pdf
 *.directory
 .Rproj.user
 *.tdo
+*.rds
