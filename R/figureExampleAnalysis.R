@@ -69,16 +69,27 @@ s1 <- getSamplesOfPatient(samples, idx1, obsList)
 s2 <- getSamplesOfPatient(samples, idx2, obsList)
 
 graph1 <- plotEtaDensity(s1$eta, s2$eta, constructNms)
+
+# add true values per reviewers request
+df_tmp <- data.frame(y = -0.025, x = c(obsList$eta[, c(idx1, idx2)]),
+                     Patient = factor(rep(1:2, each = 3)),
+                     construct = factor(rep(constructNms, 2)))
+graph1b <- graph1 +
+  geom_point(data = df_tmp, mapping = aes(x = x, y = y, group = Patient, color = Patient), shape = 22, stroke = 2) +
+  viridis::scale_color_viridis(option = "C", discrete = TRUE)
+graph1b
+
 obj <- plotEtaDiffDensity(s1$eta, s2$eta, constructNms)
 graph2 <- obj$graph
 print(tb2show)
 round(rbind(se1, se2), 2)
 print(round(obj$probs, 2))
 
-saveGraph("corrObsMeanPostMean.pdf",     graph00, height = 10, width = 10)
-saveGraph("diffCorrObsMeanPostMean.pdf", graph0,  height = 10, width = 10)
-saveGraph("twoPatientsDensity.pdf",      graph1,  height = 7, width = 15)
-saveGraph("twoPatientsDiffDensity.pdf",  graph2,  height = 7, width = 15)
+saveGraph("corrObsMeanPostMean.pdf",          graph00, height = 10, width = 10)
+saveGraph("diffCorrObsMeanPostMean.pdf",      graph0,  height = 10, width = 10)
+saveGraph("twoPatientsDensity.pdf",           graph1,  height = 7, width = 15)
+saveGraph("twoPatientsDiffDensity.pdf",       graph2,  height = 7, width = 15)
+saveGraph("twoPatientsDensityAndTrueVal.pdf", graph1b, height = 7, width = 15)
 xtable::xtable(tb2show)
 
 # let's find out where the difference between patient 1 and 2 lies!

@@ -39,7 +39,8 @@
 \renewcommand\AB@affilsepx{, \protect\Affilfont}% no newline after each affiliation
 \makeatother
 
-\newenvironment{revision}{\color{teal}}{\color{black}}
+\newenvironment{revision}{\color{black}}{\color{black}}
+\newenvironment{revisionN}{\color{teal}}{\color{black}}
 \input{myCommands.tex}
 
 \newcommand{\osflink}{\url{https://osf.io/jkv38/}}
@@ -48,7 +49,7 @@
 
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}
 \author[1]{Don van den Bergh%
-\thanks{Correspondence concerning this article should be addressed to: Don van den Bergh, University of Amsterdam, Department of Psychological Methods, Nieuwe Achtergracht 129, 1001 NK Amsterdam, The Netherlands. E-Mail should be sent to: donvdbergh@hotmail.com. This work was supported by a Research Talent grant from the Netherlands Organization of Scientic Research (NWO). R and Stan code \begin{revision}is\end{revision} available at \osflink{}.
+\thanks{Correspondence concerning this article should be addressed to: Don van den Bergh, University of Amsterdam, Department of Psychological Methods, Nieuwe Achtergracht 129, 1001 NK Amsterdam, The Netherlands. E-Mail should be sent to: donvdbergh@hotmail.com. This work was supported by a Research Talent grant from the Netherlands Organization of Scientic Research (NWO). R and Stan code \protect\begin{revision}is\protect\end{revision} available at \osflink{}.
 }}
 
 \author[2]{Stefan Bogaerts}
@@ -78,7 +79,11 @@ In many forensic psychiatric hospitals, patients' mental health is monitored at 
 
 Forensic psychiatric hospitals monitor the mental health and forensic risk factors of their patients at regular intervals, typically using a method such as Routine Outcome Monitoring \cite{deBeurs2011ROM}. A clinician, psychiatrist, or another staff member, henceforth a \textit{rater}, scores a patient on historical, clinical, and prospective criteria. For example, a rater evaluates a patient's risk factors and behavior on a variety of criteria that relate to aggressiveness and the risk of recidivism. Such evaluations are stored so they may be used to inform future decisions. The decisions informed by these ratings can vary widely. For instance, the scores may help adjust treatment to individual patients, the change in scores over time allows for an assessment of treatment effectiveness, and the scores may warn staff that particular patients are at high risk of turning violent. Moreover, these ratings are key for a quantitative approach to monitoring and forecasting patients' behavior.
 
-Current practices for aggregating the scores are suboptimal. Evaluations from different raters are often averaged as if they are exchangeable. For example, personal communication with the staff of a forensic psychiatric hospital suggested that clinicians are more lenient in their ratings than psychiatrists, but this information is not used to weigh their ratings. Furthermore, patients are analyzed in isolation, as if they are independent of one another. Any background information about patients, such as a patient's criminal record, is not accounted for and is only seen as static baseline information. In addition, uncertainty estimates of the resulting score are usually ignored.
+Current practices for aggregating the scores are suboptimal. Evaluations from different raters are often averaged as if they are exchangeable. For example, personal communication with the staff of a forensic psychiatric hospital suggested that clinicians are more lenient in their ratings than psychiatrists, but this information is not used to weigh their ratings. Furthermore, patients are analyzed in isolation, as if they are independent of one another.\
+\begin{revisionN}%
+For example, consider a random sample consisting of patients with a schizophrenic disorder and patients with an addictive disorder. The patients are clearly not independent of each other; patients with the same disorder will most certainly resemble each other more.
+\end{revisionN}%
+Any background information about patients, such as a patient's criminal record, is not accounted for and is only seen as static baseline information. In addition, uncertainty estimates of the resulting score are usually ignored.
 
 Here we address these issues using Cultural Consensus Theory \cite<CCT; >{romney1986culture, batchelder1988test, batchelder2012cultural}. The defining characteristic of CCT is that it aims to estimate the consensus knowledge shared by raters. Hence, CCT is a promising framework for analyzing data of forensic psychiatric hospitals, where the true state of a patient is unknown and needs to be estimated from the scores given by the raters. CCT models capture individual differences between raters and items, and pool information while accounting for these differences. However, currently available CCT models can only be applied to the data of a single patient; a limitation addressed in this paper.\footnote{\begin{revision}To be precise, currently available CCT models can only describe two hierarchical structures, i.e., for data of patients and raters, patients and items, or items and raters. However, existing CCT models treat the third hierarchical structure as non-hierarchical.\end{revision}}
 
@@ -92,7 +97,7 @@ The next sections introduce Cultural Consensus Theory (CCT). First, a brief intr
 \subsection*{Cultural Consensus Theory}
 Cultural Consensus Theory, also known as ``test theory without an answer key'' \cite{batchelder1988test}, is a statistical tool that can be used to retrieve the unknown ``truth'' for an item by examining the consensus among the responses. For example, given a political questionnaire, there are no objectively correct answers. Instead, one could administer the questionnaire to left-oriented respondents and use CCT to find out what the consensus is among left-oriented respondents. CCT models can capture that some responders have a higher competency and will strictly answer according to the cultural consensus. Likewise, items can differ in their difficulty, i.e., the competence required to answer according to the consensus. For a political questionnaire, this implies that only extremely left-oriented respondents agree with the most left-oriented political statements. Note that competence and difficulty parameters are relative to the consensus and do not refer to absolute competence or difficulty. Instead competence captures the extent to which a rater evaluates according to the group consensus; likewise, difficulty captures how \begin{revision}high a rater's competence must be to be expected to answer an item according to the group consensus.\end{revision}
 %difficult it is to answer an item according to the group consensus.
-In addition, CCT models can be expanded to allow for multiple consensus truths, that is, there can be multiple unknown truths that vary across subgroups of respondents \cite{AndersBatchelder2012}. For a political questionnaire, the different consensuses (e.g., left, right, center, etc.) and respondents membership to these groups would be estimated from the data. The property of CCT models to estimate the consensus truth from the data is ideal for psychiatric data, where a patient's true state is unknown and a consensus from the raters is desired. CCT models can be applied to continuous data \cite<e.g., the LTM;>{batchelder2012cultural}, binary data \cite<e.g.,~the General Condorcet model; >{Batchelder1986statistical}, and ordinal data (\AB{}). Since ratings are usually given on a Likert scale, we focus on a CCT model for ordinal data.
+In addition, CCT models can be expanded to allow for multiple consensus truths, that is, there can be multiple unknown truths that vary across subgroups of respondents \cite{AndersBatchelder2012}. For a political questionnaire, the different consensuses (e.g., left, right, center, etc.) and respondents membership to these groups would be estimated from the data. The property of CCT models to estimate the consensus truth from the data is ideal for psychiatric data, where a patient's true state is unknown and a consensus from the raters is desired. CCT models can be applied to continuous data \cite<e.g., the LTM;>{batchelder2012cultural}, \begin{revisionN}categorical\end{revisionN} data \cite<e.g.,~the General Condorcet model; >{Batchelder1986statistical}, and ordinal data (\AB{}). Since ratings are usually given on a Likert scale, we focus on a CCT model for ordinal data.
 
 \subsection*{The Latent Truth Rater Model}
 As a starting point, consider the Latent Truth Rater Model (LTRM), a cultural consensus model for ordinal data introduced by \AB{}. Figure~\ref{model:LTRM} shows a graphical model of the LTRM \begin{revision}and Table~\ref{tb:LTRMparameterOverview} provides an overview of the parameters\end{revision}. The LTRM captures differences among raters and items and may be viewed as the simplest model for a single patient.
@@ -130,7 +135,7 @@ The rating of rater $\Irater$ on item $\Iitem$ is denoted $x_{\Irater\Iitem}$ an
 	\dlogiss{x}{l}{s} = \frac{\exp\left(-\frac{x - l}{s}\right)}{s\left(1 + \exp\left(-\frac{x - l}{s}\right)\right)^2}
 	\quad \text{where $s > 0$}.
 \end{align*}
-The scale of the logistic distribution for the latent appraisals consists of two components. Differences in item difficulty are captured by $\ItemDifficulty_\Iitem$ and differences in rater competence are captured by $\RaterCompetence_\Irater$ (\AB{}'s axiom 3). The ratio of item difficulty over rater competence is the variance of the latent appraisal. For example, if an item is difficult then the variance of the latent appraisals is high, which leads to a spread-out probability distribution over observed ratings. Likewise, if the rater competence is high, then the variance of the latent appraisals is low and the probability distribution over observed ratings is concentrated. Latent appraisals $\Appraisal_{\Irater\Iitem}$ are assumed to be conditionally independent given the latent truth $\ItemTruth{}_\Iitem$, the item difficulty $\ItemDifficulty_{\Iitem\Ipatient}$, and the rater competence $\RaterCompetence_\Irater$ (i.e., their joint distribution can be factored into a product of univariate distributions that only depend on the three aforementioned parameters; \AB{}'s axiom 4). So far, the axioms describe a continuous latent process that underlies each observation. To translate these continuous latent appraisals to categorical responses, it is assumed that there exist $\Tncat - 1$ ordered thresholds $\delta_{\Irater\Incat}$, such that each $x_{\Irater\Iitem}$ is generated deterministically in the following way (\AB{}'s axiom 5):
+The scale of the logistic distribution for the latent appraisals consists of two components. Differences in item difficulty are captured by $\ItemDifficulty_\Iitem$ and differences in rater competence are captured by $\RaterCompetence_\Irater$ (\AB{}'s axiom 3). The ratio of item difficulty over rater competence is the variance of the latent appraisal. For example, if an item is difficult then the variance of the latent appraisals is high, which leads to a spread-out probability distribution over observed ratings. Likewise, if the rater competence is high, then the variance of the latent appraisals is low and the probability distribution over observed ratings is concentrated. Latent appraisals $\Appraisal_{\Irater\Iitem}$ are assumed to be conditionally independent given the latent truth $\ItemTruth{}_\Iitem$, the item difficulty $\ItemDifficulty_{\Iitem}$, and the rater competence $\RaterCompetence_\Irater$ (i.e., their joint distribution can be factored into a product of univariate distributions that only depend on the three aforementioned parameters; \AB{}'s axiom 4). So far, the axioms describe a continuous latent process that underlies each observation. To translate these continuous latent appraisals to categorical responses, it is assumed that there exist $\Tncat - 1$ ordered thresholds $\delta_{\Irater\Incat}$, such that each $x_{\Irater\Iitem}$ is generated deterministically in the following way (\AB{}'s axiom 5):
 \begin{align*}
 	x_{\Irater\Iitem} =
 	\left\{\begin{array}{ll}
@@ -149,7 +154,12 @@ P(x_{\Irater\Iitem}\mid  \Appraisal_{\Irater\Iitem},\delta_{\Irater}) =
 	\ilogit{\Appraisal_{\Irater\Iitem} - \Threshold_{\Irater,\Tncat-1}}       & \text{if } x_{\Irater\Iitem} = \Tncat.
 \end{array} \right.
 \end{align*}
-where $\ilogit{x} = \left(1 + \mathrm{e}^{-x}\right)^{-1}$, \begin{revision}the cumulative distribution function of the standard logistic distribution\end{revision}. The thresholds $\Threshold_{\Irater\Incat}$ accommodate the response biases of the raters. \AB{} do so by estimating $\Tncat-1$ ordered thresholds $\UnBiasedThreshold$ and defining $\Threshold_{\Irater\Incat} = \RaterScale_\Irater \UnBiasedThreshold_\Incat + \RaterShift_\Irater$ (\AB{}'s axiom 6). This translation of thresholds is called the Linear in Log Odds function and is a useful tool for capturing bias in probability estimation \cite{Fox1995, Gonzalez1999, Anders2015cultural}. \begin{revision}Specifically, the scale parameter $\RaterScale$ concentrates the thresholds closer together or farther apart, and thus can yield a flat probability distribution over outcomes or a peaked one. The shift parameter $\RaterShift$ moves all thresholds up and down relative to the item location and thus captures the fact that some raters give higher overall ratings than others.\end{revision}
+where $\ilogit{x} = \left(1 + \mathrm{e}^{-x}\right)^{-1}$, \begin{revision}the cumulative distribution function of the standard logistic distribution\end{revision}. The thresholds $\Threshold_{\Irater\Incat}$ accommodate the response biases of the raters. \AB{} do so by estimating $\Tncat-1$ ordered thresholds $\UnBiasedThreshold$ and defining $\Threshold_{\Irater\Incat} = \RaterScale_\Irater \UnBiasedThreshold_\Incat + \RaterShift_\Irater$ (\AB{}'s axiom 6). This translation of thresholds is called the Linear in Log Odds function and is a useful tool for capturing bias in probability estimation \cite{Fox1995, Gonzalez1999, Anders2015cultural}.
+%\begin{revision}Specifically, the scale parameter $\RaterScale$ concentrates the thresholds closer together or farther apart, and thus can yield a flat probability distribution over outcomes or a peaked one. The shift parameter $\RaterShift$ moves all thresholds up and down relative to the item location and thus captures the fact that some raters give higher overall ratings than others.\end{revision}
+\begin{revisionN}%
+Specifically, the scale parameter concentrates the thresholds closer together or farther apart, and thus can yield a flat or peaked probability distribution, respectively.
+\end{revisionN}
+The shift parameter $\RaterShift$ moves all thresholds up and down relative to the item location and thus captures the fact that some raters give higher overall ratings than others.
 
 Figure~\ref{fig:orderedLogistic} provides an intuition for how the ordered logistic distribution can model different outcomes by varying only the rater parameters. The latent appraisal $\Appraisal$ is fixed to 0, the thresholds $\UnBiasedThreshold$ are equal to $\logit{c/C}$ such that $P(x_{\Irater\Iitem}\mid \Appraisal=0,\,\UnBiasedThreshold,\,\RaterScale_\Irater=1,\,\RaterShift_\Irater=0)$ is uniform, and the scale $\RaterScale_\Irater$ and shift $\RaterShift_\Irater$ vary. In the left panel, there is no response bias, $\RaterScale_\Irater = 1$ and $\RaterShift_\Irater = 0$, which yields a uniform distribution over the predicted Likert scores. In the right panel, an increase in response scale and shift, $\RaterShift_\Irater = .5$ and $\RaterScale_\Irater = 2$, concentrates the predicted Likert scores around 2 and 3.
 \begin{figure}[!ht]
@@ -163,20 +173,20 @@ Figure~\ref{fig:orderedLogistic} provides an intuition for how the ordered logis
 		\includegraphics[width=.97\textwidth]{figures/orderedLogisticBiased.pdf}
 	\end{subfigure}
 	\caption{
-		\begin{revision}The ordered logistic distribution relates latent appraisals $\Appraisal_{\Irater\Iitem}$ to response categories $\UnBiasedThreshold = 1,\,\dots,\,5$  via category thresholds $\Threshold_1,\,\dots,\,\Threshold_4$.\end{revision}
+		\protect\begin{revision}The ordered logistic distribution relates latent appraisals $\Appraisal_{\Irater\Iitem}$ to response categories $\UnBiasedThreshold = 1,\,\dots,\,5$  via category thresholds $\Threshold_1,\,\dots,\,\Threshold_4$.\protect\end{revision}
 %		Ordered logistic distribution for $y_{\Irater\Iitem} = 0$, thresholds $\UnBiasedThreshold$ equal to $\logit{c/C}$, and varying rater components. 
-		The implied probability distribution over response categories is shown inside each panel. In the left panel, there is no response bias, $\RaterScale_\Irater = 1$, $\RaterShift_\Irater = 0$. As a consequence, the distribution over the predicted Likert scores is uniform. In the right panel, the thresholds are shifted right, $\RaterShift_\Irater = 0.5$, and the scale increased slightly, $\RaterScale_\Irater = 2$, such that the distribution over predicted Likert scores is peaked on outcomes 2 and 3. \begin{revision}In both panels, the item location parameter $\ItemTruth_\Iitem$ is 0.\end{revision}}
+		The implied probability distribution over response categories is shown inside each panel. In the left panel, there is no response bias, $\RaterScale_\Irater = 1$, $\RaterShift_\Irater = 0$. As a consequence, the distribution over the predicted Likert scores is uniform. In the right panel, the thresholds are shifted right, $\RaterShift_\Irater = 0.5$, and the scale increased slightly, $\RaterScale_\Irater = 2$, such that the distribution over predicted Likert scores is peaked on outcomes 2 and 3. \protect\begin{revision}In both panels, the item location parameter $\ItemTruth_\Iitem$ is 0.\protect\end{revision}}
 	\label{fig:orderedLogistic}
 \end{figure}
 
 The LTRM is a complex model and unfortunately suffers from identification issues, as \AB{} already pointed out. For example, multiplying the rater competences $\RaterCompetence$ and the item difficulties $\ItemDifficulty$ by a constant $c$ yields an identical variance for the appraisal distribution since $\nicefrac{c\RaterCompetence}{c\ItemDifficulty} = \nicefrac{\RaterCompetence}{\ItemDifficulty}$. Such identification problems are avoided by restricting the mean of the respective parameters to 1 (as suggested in Appendix C in \AB{}). Another identification problem originates from estimating the thresholds individually. The number of thresholds, $\Tncat-1$, increases with the number of response options. This introduces a large number of parameters that can be difficult to estimate, in particular when some response options are not observed (i.e., when there are ceiling or floor effects). In addition, the model is only identified if the sum of thresholds is zero ($\sum_{\Incat=1}^{\Tncat}\UnBiasedThreshold_\Incat = 0$; otherwise adding a constant to $\ItemTruth{}_\Iitem$ and $\Threshold_\Incat$ yields an identical likelihood). Rather than modeling each threshold individually, we describe the thresholds using only two parameters per rater. Specifically, we model the thresholds as deviances from an initial guess, $\UnBiasedThreshold_\Incat = \logit{c/C}$. This yields a set of thresholds such that if the latent appraisal is 0 then $P(x_{\Irater\Iitem})$ is uniform. Response biases are incorporated in the same manner: $\Threshold_{\Irater\Incat} = \RaterScale_\Irater\logit{c/C} + \RaterShift_\Irater$. This simplification can still capture a wide variety of data sets \cite{Selker2019}.
 
-\begin{revision}
+\protect\begin{revision}
 
 	\begin{table}[!ht]
 
 	\centering
-	\caption{\begin{revision}Overview of the parameters in the LTRM. The first column indicates the parameter, the second the parameter bounds, and the third provides the definition or prior distribution of that parameter. The last column provides a brief description of the parameter.\end{revision}}%
+	\caption{\protect\begin{revision}Overview of the parameters in the LTRM. The first column indicates the parameter, the second the parameter bounds, and the third provides the definition or prior distribution of that parameter. The last column provides a brief description of the parameter.\protect\end{revision}}%
 
 	\label{tb:LTRMparameterOverview}
 
@@ -221,7 +231,7 @@ The LTRM is a complex model and unfortunately suffers from identification issues
 
 \end{table}
 
-\end{revision}
+\protect\end{revision}
 
 
 \subsection*{Three Extensions}
@@ -229,12 +239,12 @@ The LTRM is a complex model and unfortunately suffers from identification issues
 The LTRM as described above has many desirable properties; for instance, it captures individual differences among both raters and items. However, many properties of psychiatric data are not captured by the model. Three extensions generalize the LTRM to improve its capacity to describe the data at hand.
 
 \subsubsection*{Extension I: Multiple Patients}
-The first extension allows the model to describe multiple patients instead of a single patient. Since even patients with the same disorder can have different item scores, the latent truth for an item varies across patients to reflect this. \begin{revision}Likewise, it can be\end{revision} more difficult for raters to answer specific items according to the consensus, but only for some patients. To describe parameters that vary across patients we introduce the subscript $\Ipatient$ for patient. Both these changes can be achieved by allowing the item truth $\ItemTruth_{\Iitem\Ipatient}$ and item difficulty $\ItemDifficulty_{\Iitem\Ipatient}$ to vary across patients, so that the latent appraisal $\Appraisal_{\Irater\Iitem\Ipatient}$ varies across patients. Note that item difficulty is no longer specific to items, but also captures the interaction between patients and items. Modeling this interaction is useful when, for example, a patient barely cooperates with a question about his or her feelings; as a result, it is hard to score this item according to the consensus, but only for this patient. As in Figure~\ref{model:LTRM}, we assume that the patient parameters are drawn from a group-level distribution with unknown mean and variance, for instance, the item difficulty could follow a gamma distribution with unknown mean and variance (i.e., $\ItemDifficulty_{\Iitem\Ipatient} \sim \dgammaMV{\mu_\ItemDifficulty}{\sigma_\ItemDifficulty^2}$).
+The first extension allows the model to describe multiple patients instead of a single patient. Since even patients with the same disorder can have different \begin{revisionN}ratings for the same item\end{revisionN}, the latent truth for an item varies across patients to reflect this. \protect\begin{revision}Likewise, it can be\protect\end{revision} more difficult for raters to answer specific items according to the consensus, but only for some patients. To describe parameters that vary across patients we introduce the subscript $\Ipatient$ for patient. Both these changes can be achieved by allowing the item truth $\ItemTruth_{\Iitem\Ipatient}$ and item difficulty $\ItemDifficulty_{\Iitem\Ipatient}$ to vary across patients, so that the latent appraisal $\Appraisal_{\Irater\Iitem\Ipatient}$ varies across patients. Note that item difficulty is no longer specific to items, but also captures the interaction between patients and items. Modeling this interaction is useful when, for example, a patient barely cooperates with a question about his or her feelings; as a result, it is hard to score this item according to the consensus, but only for this patient. As in Figure~\ref{model:LTRM}, we assume that the patient parameters are drawn from a group-level distribution with unknown mean and variance, for instance, the item difficulty could follow a gamma distribution with unknown mean and variance (i.e., $\ItemDifficulty_{\Iitem\Ipatient} \sim \dgammaMV{\mu_\ItemDifficulty}{\sigma_\ItemDifficulty^2}$).
 
 \subsubsection*{Extension II: Latent Constructs}
 Often, we are not just interested in the latent truth of a single item, but also in a construct that is measured by multiple items. For instance, the latent construct aggressiveness could be measured with multiple items. To allow the model to measure constructs, we introduce a latent variable $\FactorScore_{\Ipatient\Ilatent}$ that represents the score of patient $\Ipatient$ on latent variable $\Ilatent$. Items can load on different latent variables, which introduces a factor model over the items. The relation between the latent construct $\Ilatent$ and the item consensus $\Iitem$ is given by the factor loading $\FactorRegression_{\Iitem\Ilatent}$, such that $\ItemTruth_{\Iitem\Ipatient} \sim \dnorm{\FactorRegression_{\Iitem\Ilatent}\eta_{\Ipatient\Ilatent}}{\sigma^2_{\FactorScore_{\Ipatient}}}$. The measurement model, i.e., which items load on what latent construct, is assumed to be known.
 
-As prior distribution on the latent constructs $\FactorScore_{\Ipatient\Ilatent}$ we used a normal distribution with mean 0 and variance 1, which reflects that the mean and variance of a latent variable are typically  unidentified. In addition, simulations showed that the estimated regressions weights and the estimated patients' scores on the latent constructs exhibited label switching. For example, multiplying both the latent constructs $\FactorScore$ and the factor loadings $\FactorRegression$ by $-1$ yields the same distribution over the item truths. To avoid label switching, we restricted the factor loadings to be positive. Since we assume the factor structure to be approximately known, items that will have a negative loading on the latent construct can \begin{revision}be\end{revision} reverse-scored. Here, approximately implies that if an item loads on a scale, we know whether it correlates positively or negatively with the scale although the magnitude is unknown.
+As prior distribution on the latent constructs $\FactorScore_{\Ipatient\Ilatent}$ we used a normal distribution with mean 0 and variance 1, which reflects that the mean and variance of a latent variable are typically  unidentified. In addition, simulations showed that the estimated regressions weights and the estimated patients' scores on the latent constructs exhibited label switching. For example, multiplying both the latent constructs $\FactorScore$ and the factor loadings $\FactorRegression$ by $-1$ yields the same distribution over the item truths. To avoid label switching, we restricted the factor loadings to be positive. Since we assume the factor structure to be approximately known, items that will have a negative loading on the latent construct can \protect\begin{revision}be\protect\end{revision} reverse-scored. Here, approximately implies that if an item loads on a scale, we know whether it correlates positively or negatively with the scale although the magnitude is unknown.
 
 \subsubsection*{Extension III: Patient and Rater Information}
 The third extension adds background information about raters and patients to the LTRM. This helps the model to capture that, for instance, patients with a pedophilic disorder are typically less aggressive than murderers. Discrete patient characteristics, such as criminal record,  and rater characteristics are captured by introducing separate parameters of the group-level distributions for each level of the discrete characteristic. For example, the mean of the group-level distribution of the aggressiveness scale is estimated separately for murderers and patients with a pedophilic disorder. More formally, background information is represented by a categorical indicator $\PatientCovariate_{\Ipatient}$ that takes on values $1$ through $\TdiscreteP$ for each patient $\Ipatient$. The group-level distribution for factor scores then becomes $\FactorScore_{\Ipatient\Ilatent}~\sim~\dnorm{\mu_{\PatientCovariate_\Ipatient\Ilatent}}{\sigma_{\PatientCovariate_\Ipatient\Ilatent}}$.
@@ -266,14 +276,14 @@ It is important to consider that the influence of background variables can diffe
 	\label{model:LTRM3}
 \end{figure}
 
-Figure~\ref{model:LTRM3} graphically summarizes the extended LTRM \begin{revision}and Table~\ref{tb:ExtendedLTRMparameterOverview} provides an overview of the parameters\end{revision}. The extended LTRM first separates the rater-specific influences from the data $x_{\Irater\Iitem\Ipatient}$, hereby accounting for different groups of raters. This results in a latent consensus for each item and patient $\ItemTruth_{\Iitem\Ipatient}$. This consensus is subsequently used as an indicator for a latent construct for all patients and constructs $\FactorScore_{\Ipatient\Ilatent}$. The relation between the latent construct and the items is given by the factor loadings $\FactorRegression_{\Iitem\Ilatent}$, such that $\ItemTruth_{\Iitem\Ipatient} \sim \dnorm{\FactorRegression_{\Iitem\Ilatent}\eta_{\Ipatient\Ilatent}}{1}$. The factor scores also incorporate patient-specific background information, such as the crime a patient committed.
+Figure~\ref{model:LTRM3} graphically summarizes the extended LTRM \protect\begin{revision}and Table~\ref{tb:ExtendedLTRMparameterOverview} provides an overview of the parameters\protect\end{revision}. The extended LTRM first separates the rater-specific influences from the data $x_{\Irater\Iitem\Ipatient}$, hereby accounting for different groups of raters. This results in a latent consensus for each item and patient $\ItemTruth_{\Iitem\Ipatient}$. This consensus is subsequently used as an indicator for a latent construct for all patients and constructs $\FactorScore_{\Ipatient\Ilatent}$. The relation between the latent construct and the items is given by the factor loadings $\FactorRegression_{\Iitem\Ilatent}$, such that $\ItemTruth_{\Iitem\Ipatient} \sim \dnorm{\FactorRegression_{\Iitem\Ilatent}\eta_{\Ipatient\Ilatent}}{1}$. The factor scores also incorporate patient-specific background information, such as the crime a patient committed.
 
-\begin{revision}
+\protect\begin{revision}
 	
 	\begin{table}[!ht]
 		
 		\centering
-		\caption{\begin{revision}Overview of the parameters in the extended LTRM. The first column indicates the parameter, the second the parameter bounds, and the third provides the definition or prior distribution of that parameter. The last column provides a brief description of the parameter.\end{revision}}%
+		\caption{\protect\begin{revision}Overview of the parameters in the extended LTRM. The first column indicates the parameter, the second the parameter bounds, and the third provides the definition or prior distribution of that parameter. The last column provides a brief description of the parameter.\protect\end{revision}}%
 		
 		\label{tb:ExtendedLTRMparameterOverview}
 		
@@ -287,49 +297,50 @@ Figure~\ref{model:LTRM3} graphically summarizes the extended LTRM \begin{revisio
 			
 			$\Appraisal_{\Irater\Iitem\Ipatient}		$&$	\Reals			$&$\ItemTruth_{\Iitem\Ipatient} + \Error_{\Irater\Iitem}$&
 			\makecell[l]{Appraisal of rater $\Irater$\\on item $\Iitem$ and patient $\Ipatient$.}\\
-			
+\midrule
 			$\UnBiasedThreshold_\Incat 					$&$	[0,\,1]			$&$\logit{\nicefrac{\Incat}{\Tncat}}$&
 			\makecell[l]{Unbiased thresholds for\\outcome $\Incat$.}\\
-			
+\midrule			
 			$\Threshold_{\Irater\Incat} 				$&$	\Reals			$&$\RaterScale_\Irater \gamma_\Incat + \RaterShift_\Irater$&
 			\makecell[l]{Transformed thresholds\\for rater $\Irater$ on outcome $\Incat$.}\\
-			
+\midrule			
 			$\Error_{\Irater\Iitem\Ipatient}   			$&$	\Reals			$&$\dlogis{0}{\nicefrac{\ItemDifficulty_{\Iitem\Ipatient}}{\RaterCompetence_\Irater}} $&
 			Residual of appraisal.\\
-			
+\midrule			
 			$\ItemTruth_{\Iitem\Ipatient}      			$&$	\Reals			$&$\dnorm{\lambda_{\Iitem\Ilatent}\eta_{\Ipatient\Ilatent}}{1}$&
 			\makecell[l]{Location of item $\Iitem$\\for patient $\Ipatient$.}\\
-			
+\midrule			
 			$\ItemDifficulty_{\Iitem\Ipatient}   		$&$	\PositiveReals	$&$\dgammaMV{\mu_\ItemDifficulty}{\sigma_\ItemDifficulty^2} $&
 			\makecell[l]{Difficulty of item $\Iitem$\\ for patient $\Ipatient$.}\\
-			
+\midrule			
 			$\RaterScale_\Irater      					$&$	\PositiveReals	$&$\dgammaMV{\mu_{\RaterScale_\Irater}}{\sigma_{\RaterScale_\Irater}^2} $&
 			Scale-bias of rater $\Irater$.\\
-			
+\midrule			
 			$\RaterShift_\Irater      					$&$	\Reals			$&$\dnorm{\mu_{\RaterCovariate_\Irater\RaterShift}}{\sigma_{\RaterShift_\Irater}^2} $&
 			Shift-bias of rater $\Irater$.\\
-			
+\midrule			
 			$\RaterCompetence_\Irater 					$&$	\PositiveReals	$&$\dgammaMV{\mu_{\RaterCompetence_\Irater}}{\sigma_{\RaterCompetence_\Irater}^2} $&
 			Competence of rater $\Irater$.\\
-			
+\midrule			
 			$\FactorRegression_{\Iitem\Ilatent}			$&$	\PositiveReals	$&$\dnormp{0}{10}$&
 			\makecell[l]{loading of $\theta_{\Iitem\Ipatient}$\\on factor $\FactorScore_{\Ipatient\Ilatent}$.}
 			\\
-			
+\midrule			
 			$\FactorScore_{\Ipatient\Ilatent} 			$&$ \Reals 			$&$\dnorm{\mu_{\PatientCovariate_{\Ipatient}\Ilatent}}{\sigma_{\Ipatient}^2}$&
 			\makecell[l]{latent construct\\underlying $\theta_{\Iitem\Ipatient}$.}
 			\\
-			
+\midrule			
 			$\mu_{\RaterShift}							$&$ \Reals			$&$\dnorm{0}{10}$&
 			\makecell[l]{Rater group effects.}
 			\\
-			
-			$\mu_{\FactorScore}							$&$ \Reals 			$&$\dnorm{0}{10}$
+\midrule			
+			$\mu_{\FactorScore}							$&$ \Reals 			$&$\dnorm{0}{10}$&
+			\makecell[l]{Latent construct group\\effects.}
 			\\
-			
+\midrule			
 			$\PatientCovariate_{\Ipatient}				$&$ \{0, 1, \dots\}	$& Data&
 			\makecell[l]{Indicator variable that\\groups patients.}	\\
-			
+\midrule			
 			$\RaterCovariate_\Irater					$&$ \{0, 1, \dots\}	$& Data&
 			\makecell[l]{Indicator variable that\\groups raters.}	\\
 			
@@ -339,7 +350,7 @@ Figure~\ref{model:LTRM3} graphically summarizes the extended LTRM \begin{revisio
 		
 	\end{table}
 	
-\end{revision}
+\protect\end{revision}
 
 \section*{Implementation}
 The next sections illustrate the LTRM in a variety of scenarios. First, we demonstrate the benefit of the LTRM over the raw means in an example analysis of two fictitious patients. Second, we demonstrate that the parameters of the LTRM can be accurately recovered. Last, we compare the predictive performance of the LTRM to the unweighted mean of the observations and two machine learning toolboxes.
@@ -348,7 +359,7 @@ We estimate the parameters of the LTRM and the extended LTRM using a Bayesian ap
 
 \section*{Example Analysis}
 
-Here we showcase the benefits of a CCT analysis by examining results for two \begin{revision}patients that are part of a sample of 50 fictitious patients\end{revision}. This example demonstrates how misleading the sample mean can be. We simulated a data set of 50 patients, 10 raters, 20 items, and 5 answer categories. The items loaded on 3 latent constructs, further referred to as aggressiveness, anxiety, and depression. A patient-specific covariate consisting of 5 categories was added to mimic the effect of a patient's criminal offense. Similarly, two categories were of raters (e.g., clinicians and psychiatrists) were simulated. Next, we selected two patients whose differences in observed means were small relative to their differences in posterior means on the latent constructs. The means for items of each construct are shown in Table~\ref{tb:rawMeans}.
+Here we showcase the benefits of a CCT analysis by examining results for two \protect\begin{revision}patients that are part of a sample of 50 fictitious patients\protect\end{revision}. This example demonstrates how misleading the sample mean can be. We simulated a data set of 50 patients, 10 raters, 20 items, and 5 answer categories. The items loaded on 3 latent constructs, further referred to as aggressiveness, anxiety, and depression. A patient-specific covariate consisting of 5 categories was added to mimic the effect of a patient's criminal offense. Similarly, two categories were of raters (e.g., clinicians and psychiatrists) were simulated. Next, we selected two patients whose differences in observed means were small relative to their differences in posterior means on the latent constructs. The means for items of each construct are shown in Table~\ref{tb:rawMeans}.
 \begin{table}[!ht]
 	\centering
 	\caption{Raw means of the observed ratings for the two patients with similar mean responses. The standard errors of the means are shown in parentheses. The means and standard errors are computed for each scale.}%
@@ -366,8 +377,14 @@ Here we showcase the benefits of a CCT analysis by examining results for two \be
 \end{table}
 The aggregates of the raw scores suggests that these two patients might differ in aggressiveness and depression but not in anxiety. However, after fitting the extended LTRM to the data it becomes apparent that there is more to the data than what is shown by these averages. Using the extended LTRM, we can visualize the posterior distributions of the latent constructs for both patients, shown in Figure~\ref{fig:ExamplePosterior}.
 \begin{figure}[!ht]
-	\includegraphics[width=\textwidth]{figures/twoPatientsDensity.pdf}
-	\caption{Approximate posterior densities for the two patients with similar response patterns. The panels show different latent constructs. The posterior distributions suggest these patients differ on all three latent constructs, unlike what the raw means in Table~\ref{tb:rawMeans} would suggest. This demonstrates that more information can be obtained from the ratings than what may be obvious from the raw scores.}
+	\includegraphics[width=\textwidth]{figures/twoPatientsDensityAndTrueVal.pdf}
+	\caption{%
+Approximate posterior densities for the \protect\begin{revisionN}$\FactorScore_{\Ipatient\Ilatent}$ of\protect\end{revisionN} two patients with similar response patterns.
+The panels show different latent constructs.
+The posterior distributions suggest these patients differ on all three latent constructs, unlike what the raw means in Table~\ref{tb:rawMeans} would suggest.
+This demonstrates that more information can be obtained from the ratings than what may be obvious from the raw scores.
+\protect\begin{revisionN}The squares underneath the density indicate the true values used to simulate the data.\protect\end{revisionN}
+}
 	\label{fig:ExamplePosterior}
 \end{figure}
 The posterior distributions tell a different story than Table~\ref{tb:rawMeans}. Remarkably, for Anxiety where the raw means are approximately equal, the posterior distributions differ. This difference can be quantified by computing the posterior probability that patient 1 has a larger value on a latent trait than patient 2. This probability is approximated by counting how often the posterior samples of a latent construct are larger for patient 1 than for patient 2. For all three constructs, the probability that patient 1 has a higher score is larger than $0.99$ (Figure~\ref{fig:ExamplePosteriorDiff} visualizes these probabilities).
@@ -376,10 +393,10 @@ Altogether, this example shows that there is more information in the data than w
 
 In this example, all raters rated both patients. In practice, the ratings of different patients are likely given by different raters, which introduces a third source of bias. The discrepancy between the sample mean and posterior mean is shown for all patients in Figure~\ref{fig:corrMeanLatentConstruct}, which further emphasizes that the sample mean is an inadequate description of the patients' scores.
 
-\begin{revision}Naturally, the sample mean need not always perform this poorly. The more the data from different raters, items, and patients are exchangeable, the closer the predictions of the LTRM  will be to that of the sample mean.\end{revision}
+\protect\begin{revision}Naturally, the sample mean need not always perform this poorly. The more the data from different raters, items, and patients are exchangeable, the closer the predictions of the LTRM  will be to that of the sample mean.\protect\end{revision}
 
 \subsection*{Parameter Retrieval}
-A key step in developing a model is to assess if the model parameters can be retrieved accurately. For this purpose, we simulated data as in the previous example; the simulated data set consisted of 50 patients, 10 raters, 20 items, and 5 answer categories. The items loaded on 3 different latent constructs. A patient-specific covariate, consisting of 5 categories was added to mimic the effect of a patient's criminal offense. Similarly, two different categories of raters were assumed. \begin{revision}These simulation settings resemble data sets often obtained in clinical practice \cite<e.g.,>{kamphuis2014relation}.\end{revision} Figure~\ref{fig:parameterRecoveryELTRM} displays the true values against the posterior means for each parameter. Details and code to replicate the simulation can be found at \osflink{}.
+A key step in developing a model is to assess if the model parameters can be retrieved accurately. For this purpose, we simulated data as in the previous example; the simulated data set consisted of 50 patients, 10 raters, 20 items, and 5 answer categories. The items loaded on 3 different latent constructs. A patient-specific covariate, consisting of 5 categories was added to mimic the effect of a patient's criminal offense. Similarly, two different categories of raters were assumed. \protect\begin{revision}These simulation settings resemble data sets often obtained in clinical practice \cite<e.g.,>{kamphuis2014relation}.\protect\end{revision} Figure~\ref{fig:parameterRecoveryELTRM} displays the true values against the posterior means for each parameter. Details and code to replicate the simulation can be found at \osflink{}.
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width= \textwidth]{figures/parameterRecoveryModel2.pdf}
@@ -392,30 +409,37 @@ All parameters are retrieved adequately. An exception is the item difficulty $\I
 Although it is good to know when the parameters of the extended LTRM can be recovered, it may be more useful to know when the data are not sufficiently informative to apply the extended LTRM. This is likely the case when there are few items and raters. Exact numbers, however, may vary depending on the specific situation at hand. For most purposes, it is straightforward to adjust the number of raters, items, and patients, and then repeat the simulation. As an exercise, we also recovered the parameters for \AB{}'s LTRM. Code for the simulation is available in the online appendix and parameter recovery is shown in Figure~\ref{fig:parameterRecoveryABLTRM}.
 
 \subsection*{Predictive Performance}
-Here, we compare the predictive performance of the LTRM to that of the sample mode\begin{revision}, the sample median, the sample mean rounded towards the nearest integer, \end{revision} and, as a more informative comparison, to Random Forest and Boosted Regression Trees (Boosting).
+Here, we compare the predictive performance of the LTRM to that of the sample mode\protect\begin{revision}, the sample median, the sample mean rounded towards the nearest integer, \protect\end{revision} and, as a more informative comparison, to Random Forest and Boosted Regression Trees (Boosting).
 The sample mode is the most often observed outcome (since the data are discrete).
-Random Forest and Boosting analyses were done using the R packages \code{ranger} and \code{gbm} respectively \cite{ranger2017, gbmPackage}. We used the default settings for the hyperparameters in both R packages.
+Random Forest and Boosting analyses were done using the R packages \code{ranger} and \code{gbm} respectively \cite{ranger2017, gbmPackage}. We used the default settings for the hyperparameters in both R packages. \begin{revisionN}Each method made predictions on the level of the raw data, that is, the observed ratings. Performance is assessed by quantifying the distance between the predicted ratings and the simulated true ratings.\end{revisionN}
 
-\begin{revision}
+\protect\begin{revision}
 Here we briefly introduce Random Forest \cite{breiman2001random} and gradient boosted regression trees \cite{Friedman2001greedy}.
 Random Forest and Boosting are tree-based machine learning methods that learn from a training data set in order to predict out-of-sample observations.
 %Random Forest \cite{breiman2001random} and gradient boosted regression trees \cite{Friedman2001greedy} are two tree-based machine learning methods.
 %They learn from a training data set in order to predict out-of-sample observations.
 Both methods can be used across a wide range of applications.
 The methods make no parametric assumptions and their predictions tend to generalize extremely well to new observations.%
-\footnote{\begin{revision}On \emph{kaggle}, an online platform for machine learning competitions, Random Forest and Boosting are among the most successful machine learning techniques, see \url{https://www.kaggle.com/bigfatdata/what-algorithms-are-most-successful-on-kaggle}.\end{revision}}
+\footnote{\protect\begin{revision}On \emph{kaggle}, an online platform for machine learning competitions, Random Forest and Boosting are among the most successful machine learning techniques, see \url{https://www.kaggle.com/bigfatdata/what-algorithms-are-most-successful-on-kaggle}.\protect\end{revision}}
 However, both Random Forest and Boosting also have downsides.
 Both models are so-called black boxes, that is, their parameters are statistically unidentified and do not have a meaningful interpretation.
 So although their predictions are often on point, they cannot answer the \emph{how} or the \emph{why} of the phenomena they predict. Furthermore, these models cannot be simulated from and they do not provide uncertainty estimates.%
-\end{revision}
+\protect\end{revision}
 
-We simulated two data sets each consisting of 20 raters, 30 items, 50 patients, and thus in total 30,000 observations. \begin{revision}Patients were scored on a 5-point Likert scale. \end{revision}The first data set represented a dense design, where all raters scored all patients. The second data set represented a sparse design, where each rater scored 10 patients\begin{revision}, which mimics the practically plausible situation where ratings of different patients are given by different raters.\end{revision} Raters were pseudo-randomly assigned to patients so that the number of obtained scores was about equal for all patients. To simulate a sparse data set, we first simulated a dense data set and subsequently removed a score if the raters that did not rate a patient. This remaining sparse data set consisted of 6,000 observations. Next, both data sets were split into a training set (80\%) and a test set (20\%). The performance of the four methods was evaluated by training the models on the training set and using the trained model to predict the outcomes for a test set. For the LTRM \begin{revision}and the extended LTRM\end{revision}, we used the \begin{revision}mode\end{revision} of the posterior predictive distribution as a point-prediction.\footnote{In this particular example, model predictions could also be interpreted as imputing missing values. If these are regarded as missing observations rather than predictions, they should be modeled as unknown discrete parameters of the model \cite<Ch.~8;>{GelmanEtAl2014BDA}. That way, uncertainty about these missing observations is propagated into the parameters. Although we did not sample the missing observations from the joint posterior distribution, the code in the online appendix does show how to do this.} Predictions for Random Forest and Boosting were obtained by taking the majority vote of the trained classification trees. \begin{revision}For the observed sample mean, median, and mode we used all observations for the same rater, item, or patient.\end{revision}\footnote{Predictions for the mode, median, and mean are obtained in the following manner. Let a negative subscript refer to all observations except that particular one, e.g., $x_{-\Irater,\Iitem\Ipatient}$ refers to $x_{1,\Iitem\Ipatient}, x_{2,\Iitem\Ipatient}, \dots, x_{\Irater-1,\Iitem\Ipatient},x_{\Irater+1,\Iitem\Ipatient}, \dots, x_{\Trater,\Iitem\Ipatient}$; all observations for item $i$ and patient $p$ but not observation $rip$. Then predictions for the mode\begin{revision}, median, or mean\end{revision} are obtained by taking \begin{revision}respectively \end{revision}the mode\begin{revision}, median, or mean\end{revision} of $x_{-\Irater,\Iitem\Ipatient}$, $x_{\Irater,-\Iitem,\Ipatient}$, and $x_{\Irater\Iitem,-\Ipatient}$.}
+We simulated two data sets each consisting of 20 raters, 30 items, 50 patients, and thus in total 30,000 observations. \protect\begin{revision}Patients were scored on a 5-point Likert scale. \protect\end{revision}The first data set represented a dense design, where all raters scored all patients. The second data set represented a sparse design, where each rater scored 10 patients\protect\begin{revision}, which mimics the practically plausible situation where ratings of different patients are given by different raters.\protect\end{revision} Raters were pseudo-randomly assigned to patients so that the number of obtained scores was about equal for all patients. 
+To simulate a sparse data set, we first simulated a dense data set and subsequently removed a score \begin{revisionN}if the rater\end{revisionN} did not rate a patient.
+This remaining sparse data set consisted of 6,000 observations. Next, both data sets were split into a training set (80\%) and a test set (20\%). The performance of the \begin{revisionN}six\end{revisionN} methods was evaluated by training the models on the training set and using the trained model to predict the outcomes for a test set.
+For the LTRM \protect\begin{revision}and the extended LTRM\protect\end{revision}, we used the \protect\begin{revision}mode\protect\end{revision} of the posterior predictive distribution as a point-prediction.\footnote{In this particular example, model predictions could also be interpreted as imputing missing values. If these are regarded as missing observations rather than predictions, they should be modeled as unknown discrete parameters of the model \cite<Ch.~8;>{GelmanEtAl2014BDA}. That way, uncertainty about these missing observations is propagated into the parameters. Although we did not sample the missing observations from the joint posterior distribution, the code in the online appendix does show how to do this.} Predictions for Random Forest and Boosting were obtained by taking the majority vote of the trained classification trees.\footnote{%
+\protect\begin{revisionN}%
+In random Forest and Boosting, a large number of classification trees are fit to (subsets) of the data. To make a prediction, each tree makes a prediction and the most frequently predicted outcome is the final prediction.
+\protect\end{revisionN}}
+\protect\begin{revision}For the observed sample mean, median, and mode we used all observations for the same rater, item, or patient.\protect\end{revision}\footnote{Predictions for the mode, median, and mean are obtained in the following manner. Let a negative subscript refer to all observations except that particular one, e.g., $x_{-\Irater,\Iitem\Ipatient}$ refers to $x_{1,\Iitem\Ipatient}, x_{2,\Iitem\Ipatient}, \dots, x_{\Irater-1,\Iitem\Ipatient},x_{\Irater+1,\Iitem\Ipatient}, \dots, x_{\Trater,\Iitem\Ipatient}$; all observations for item $i$ and patient $p$ but not observation $rip$. Then predictions for the mode\protect\begin{revision}, median, or mean\protect\end{revision} are obtained by taking \protect\begin{revision}respectively \protect\end{revision}the mode\protect\begin{revision}, median, or mean\protect\end{revision} of $x_{-\Irater,\Iitem\Ipatient}$, $x_{\Irater,-\Iitem,\Ipatient}$, and $x_{\Irater\Iitem,-\Ipatient}$.}
 
-We quantified predictive performance by computing the confusion matrix between \begin{revision}observations in the test set\end{revision} and predicted values; a contingency table with correct predictions on the diagonal. Prediction accuracy is defined as the \begin{revision}proportion of correct predictions\end{revision}.
+We quantified predictive performance by computing the confusion matrix between \protect\begin{revision}observations in the test set\protect\end{revision} and predicted values; a contingency table with correct predictions on the diagonal. Prediction accuracy is defined as the \protect\begin{revision}proportion of correct predictions\protect\end{revision}.
 
 \begin{table}[ht]
 	\centering
-	\caption{Prediction accuracy for the \begin{revision}Extended LTRM, the\end{revision} LTRM, Random Forest, Boosting, \begin{revision}the sample mean, the sample median, \end{revision}and the sample mode. The LTRM outperforms all other methods, but Random Forest and Boosting perform worse than the sample mode. Since the data are simulated the choices for the simulation settings are somewhat arbitrary, and different settings could yield a very accurate or very inaccurate predictive performance (e.g., by adjusting item difficulty and rater competence). Therefore, the absolute prediction error cannot be interpreted and only a relative comparison should be made. Since there were 5 possible outcomes, an accuracy of $0.2$ corresponds to chance performance.}
+	\caption{Prediction accuracy for the \protect\begin{revision}Extended LTRM, the\protect\end{revision} LTRM, Random Forest, Boosting, \protect\begin{revision}the sample mean, the sample median, \protect\end{revision}and the sample mode. The LTRM outperforms all other methods, but Random Forest and Boosting perform worse than the sample mode. Since the data are simulated the choices for the simulation settings are somewhat arbitrary, and different settings could yield a very accurate or very inaccurate predictive performance (e.g., by adjusting item difficulty and rater competence). Therefore, the absolute prediction error cannot be interpreted and only a relative comparison should be made. Since there were 5 possible outcomes, an accuracy of $0.2$ corresponds to chance performance.}
 	\begin{tabular}{lrr}
 		\toprule
 		Method & Dense & Sparse \\ 
@@ -430,30 +454,30 @@ We quantified predictive performance by computing the confusion matrix between \
 		\bottomrule
 	\end{tabular}
 \end{table}
-Given that the data were generated by the \begin{revision}Extended \end{revision}LTRM, it comes as no surprise that it predicts more accurately than the other methods. However, even though data generated from the \begin{revision}Extended \end{revision}LTRM is likely a gross simplification of reality, the results show that black-box machine learning methods perform somewhat adequately. This is somewhat surprising because the data at hand are ill-suited for black-box machine learning methods, as these have difficulty capturing the hierarchical structure of the data which contains most of the information \cite<but see>{hajjem2014mixed}. Instead, if a lot of background information about patients and raters is available, this could likely improve their performance. However, machine learning methods do not provide interpretable models, which may be undesirable in practice because it makes it difficult to substantiate decisions.
+Given that the data were generated by the \protect\begin{revision}Extended \protect\end{revision}LTRM, it comes as no surprise that it predicts more accurately than the other methods. However, even though data generated from the \protect\begin{revision}Extended \protect\end{revision}LTRM is likely a gross simplification of reality, the results show that black-box machine learning methods perform somewhat adequately. This is somewhat surprising because the data at hand are ill-suited for black-box machine learning methods, as these have difficulty capturing the hierarchical structure of the data which contains most of the information \cite<but see>{hajjem2014mixed}. Instead, if a lot of background information about patients and raters is available, this could likely improve their performance. However, machine learning methods do not provide interpretable models, which may be undesirable in practice because it makes it difficult to substantiate decisions.
 
 \section*{Discussion}
 
-In this paper, we extended the Cultural Consensus model developed by \citeA{Anders2015cultural} to apply to mental health scores of patients in forensic psychiatric hospitals. The original model was suited for data from a single patient and we extended this to multiple patients, latent constructs, and patient-and rater-specific covariates. The benefit of this approach is that we can obtain estimates for, for example, a patients aggressiveness while accounting for rater bias, item-specific measurement error, and the nature of a patient's previous criminal offense. We have shown in a simulation that the parameters of the extended LTRM can be retrieved accurately.
+In this paper, we extended the Cultural Consensus model developed by \citeA{Anders2015cultural} to apply to mental health scores of patients in forensic psychiatric hospitals. The original model was suited for data from a single patient and we extended this to multiple patients, latent constructs, and patient-and rater-specific covariates. The benefit of this approach is that we can obtain estimates for, for example, a \begin{revisionN}patient's\end{revisionN} aggressiveness while accounting for rater bias, item-specific measurement error, and the nature of a patient's previous criminal offense. We have shown in a simulation that the parameters of the extended LTRM can be retrieved accurately.
 
 Although the LTRM provided better predictions than black-box machine learning approaches, this is likely because the data were simulated from the LTRM. 
-\begin{revision}%
+\protect\begin{revision}%
 In practice, it might be advantageous to combine the results from the LTRM with a machine learning method, as this may improve prediction accuracy. 
 For example, augmenting a Random Forest model with features based on psychological theories resulted in a model with better predictions of human decisions than naive machine learning models and models based on psychological theories alone \cite{plonsky2019predicting, plonsky2017psychological}.%
-\end{revision}
-However, machine learning approaches, despite their predictive power, may result in uninterpretable models which may be undesirable in psychiatric practice where decisions need to be motivated and possibly defended (e.g., when determining whether a treatment is effective or when deciding if a patient should be released). \begin{revision}In addition, the LTRM provides richer information. For example, clinicians or psychiatrists may want to know if they rate very leniently or not. On the other hand, management might be interested in what covariates determine, for instance, the aggressiveness of patients.\end{revision}
+\protect\end{revision}
+However, machine learning approaches, despite their predictive power, may result in uninterpretable models which may be undesirable in psychiatric practice where decisions need to be motivated and possibly defended (e.g., when determining whether a treatment is effective or when deciding if a patient should be released). \protect\begin{revision}In addition, the LTRM provides richer information. For example, clinicians or psychiatrists may want to know if they rate very leniently or not. On the other hand, management might be interested in what covariates determine, for instance, the aggressiveness of patients.\protect\end{revision}
 
 Ideally, patients are monitored over some time and data from multiple measurement occasions is obtained and analyzed using the extended LTRM. Rather than applying the LTRM repeatedly to data from individual measurement occasions, all observations should be analyzed simultaneously. That way, a patient's progress may be monitored over time and predictions for the future time points could be obtained along with uncertainty estimates. To extend the LTRM to incorporate time-varying components is conceptually straightforward, but the exact properties of the time-varying components should depend on the data at hand. For example, one can imagine that the factor scores of a patient vary over time as described by a dynamic factor model \cite{molenaar1985dynamic, forni2000generalized}. However, when patients are rated only rarely -- say every six months -- then the application of a sophisticated time series model is not feasible. Instead, simply estimating the difference between consecutive time points with an intercept may suffice. For these reasons, we did not explore a time series extension of the LTRM.
 
 \subsection*{Limitations}
 
-In the LTRM, we assumed that the factor structure is known. In practice, however, this need not be the case. Estimating the factor structure from the data is possible, although such an endeavor shifts the focus of the LTRM to model selection rather than assessing the progress of patients. \begin{revision}Furthermore, we ensured that the factor structure is identified by fixing all loadings to be positive. Strictly speaking, this restriction is stronger than needed to ensure that the model is identified. An alternative way is to fit the model without constraints and afterward relabel such that a factor solution that corresponds to one posterior mode is obtained \cite<e.g.,>{Erosheva2017dealing}.\end{revision} Another more flexible approach is to view the latent true scores of the items as a network \begin{revision}rather than a latent variable model \end{revision}and estimate the relations among the items (but see \citeNP{Epskamp2017CarefulWish} for possible drawbacks).
+In the LTRM, we assumed that the factor structure is known. In practice, however, this need not be the case. Estimating the factor structure from the data is possible, although such an endeavor shifts the focus of the LTRM to model selection rather than assessing the progress of patients. \protect\begin{revision}Furthermore, we ensured that the factor structure is identified by fixing all loadings to be positive. Strictly speaking, this restriction is stronger than needed to ensure that the model is identified. An alternative way is to fit the model without constraints and afterward relabel such that a factor solution that corresponds to one posterior mode is obtained \cite<e.g.,>{Erosheva2017dealing}.\protect\end{revision} Another more flexible approach is to view the latent true scores of the items as a network \protect\begin{revision}rather than a latent variable model \protect\end{revision}and estimate the relations among the items (but see \citeNP{Epskamp2017CarefulWish} for possible drawbacks).
 
-\begin{revision}The generalizability of the reported results is limited due to the small number of simulations. However, we do not believe there is much reason for concern as the characteristics of the simulated data were chosen to mimic those in practice.\end{revision}
+%\protect\begin{revision}The generalizability of the reported results is limited due to the small number of simulations. However, we do not believe there is much reason for concern as the characteristics of the simulated data were chosen to mimic those in practice.\protect\end{revision}
 
 Since the posterior distributions were approximated with variational inference, the obtained posterior distributions may be biased. In general, these biases rarely affect the estimated posterior means, but the posterior variance can be underestimated \cite{blei2017variational}. As a consequence, uncertainty intervals may be too narrow. To alleviate this problem, it is relatively straightforward to modify the Stan code in the appendix to use MCMC instead of variational inference (e.g., in the code in the appendix change \code{vb(model)} to \code{sampling(model)} to use MCMC). However, note that MCMC algorithms for the models discussed run for hours to obtain a reasonable number of posterior samples, whereas variational inference finishes after several minutes.
 
-\begin{revision}
+\protect\begin{revision}
 In the extended LTRM, extreme location parameters $\ItemTruth_{\Iitem\Ipatient}$ are underestimated (e.g., see Figure~\ref{fig:parameterRecoveryELTRM}).
 From a Bayesian perspective, there is little to worry about. Given the priors and the data, the posterior follows automatically.
 From a frequentist perspective, this bias may be worrying.
@@ -462,16 +486,16 @@ However, we want to stress that addressing bias should be considered in light of
 Furthermore, bias should not be considered in isolation of the bias-variance tradeoff, that is, reducing the bias may increase the variance of an estimator, which harms generalization. 
 For example, one straightforward approach to reduce bias is to tune the prior to minimize shrinkage. On the other hand, there are many success stories of shrinkage, Stein’s paradox being a well-known example \cite{EfronMorris1977}.
 Rather than interpreting point estimates one could instead consider the uncertainty intervals, assuming these have frequentist coverage (e.g., given enough data points or by using a procedure similar to \citeA{yu2018adaptive} or \citeA{hoff2019exact}).
-\end{revision}
+\protect\end{revision}
 
 \subsection*{Recommendations for clinical practice}
 To successfully apply the extended LTRM in practice, the data should meet several minimum requirements. 
-\begin{revision}%
+\protect\begin{revision}%
 For instance, it should be recorded which rater gave what rating, and patient and rater covariates should contain as few missing observations as possible.
-\end{revision}%
-\begin{revision}Furthermore, \end{revision}although the model accounts for differences between raters, it is best to minimize these differences, for instance through clear scoring instructions. Minimizing differences between raters ensures that rater bias is minimal and helps to ensure validity. In addition, there should be overlap among (groups of) raters and the patients they score. That is, patients should be scored by multiple raters in such a way that there are no isolated groups of raters and patients, where one group of raters only rates one group of patients and another group of raters rates a different group of patients. A lack of overlap between two groups complicates a comparison between raters and patients between them. A lack of overlap can be avoided by having rater 1 score patients 1 through 5, having rater 2 score patients 3 through 7, etc. Additional information about patients should be added to the model, such as the reason for incarceration. That should help the extended LTRM to distinguish between groups of patients that differ on these covariates. This also holds for the raters; if certain background variables are suspected of causing rater bias then these should be included in the model.
+\protect\end{revision}%
+\protect\begin{revision}Furthermore, \protect\end{revision}although the model accounts for differences between raters, it is best to minimize these differences, for instance through clear scoring instructions. Minimizing differences between raters ensures that rater bias is minimal and helps to ensure validity. In addition, there should be overlap among (groups of) raters and the patients they score. That is, patients should be scored by multiple raters in such a way that there are no isolated groups of raters and patients, where one group of raters only rates one group of patients and another group of raters rates a different group of patients. A lack of overlap between two groups complicates a comparison between raters and patients between them. A lack of overlap can be avoided by having rater 1 score patients 1 through 5, having rater 2 score patients 3 through 7, etc. Additional information about patients should be added to the model, such as the reason for incarceration. That should help the extended LTRM to distinguish between groups of patients that differ on these covariates. This also holds for the raters; if certain background variables are suspected of causing rater bias then these should be included in the model.
 
-\begin{revision}
+\protect\begin{revision}
 An important step in applying any model is assessing its fit to the data.
 There are at least two options for doing so with the extended LTRM.
 First, a traditional approach is to take the residuals of the extended LTRM and examine these for any leftover structure.
@@ -480,15 +504,15 @@ Second, one could compare the predictive performance of the LTRM to that of a ma
 The data set is split into a training set and a validation set. 
 Subsequently, the models are fitted to the training set and are evaluated on the validation set.
 This provides an idea of how much fit is lost by using a parametric model (the extended LTRM) as opposed to a nonparametric alternative (a machine learning toolbox).
-\end{revision}%
+\protect\end{revision}%
 
 
 \subsection*{Conclusion}
-We extended the Latent Truth Rater model (LTRM) introduced by \citeA{Anders2015cultural} to a model that can be applied to patients' mental health scores in forensic psychiatric hospitals. The model accounts for individual differences between raters, items, and patients. We demonstrated that the extended LTRM can provide more information about the data at hand than the raw means for two fictitious patients. In addition, we have shown that the parameters of the extended LTRM can be adequately retrieved and that the LTRM outperforms the observed mode and several machine learning toolboxes in terms of predictive power. Finally, we have provided recommendations for clinical practitioners who wish to apply the LTRM in practice. \begin{revision}Altogether, we believe the extended LTRM constitutes a promising approach for the analysis of mental health scores in forensic psychiatric hospitals.\end{revision}
+We extended the Latent Truth Rater model (LTRM) introduced by \citeA{Anders2015cultural} to a model that can be applied to patients' mental health scores in forensic psychiatric hospitals. The model accounts for individual differences between raters, items, and patients. We demonstrated that the extended LTRM can provide more information about the data at hand than the raw means for two fictitious patients. In addition, we have shown that the parameters of the extended LTRM can be adequately retrieved and that the LTRM outperforms the observed mode and several machine learning toolboxes in terms of predictive power. Finally, we have provided recommendations for clinical practitioners who wish to apply the LTRM in practice. \protect\begin{revision}Altogether, we believe the extended LTRM constitutes a promising approach for the analysis of mental health scores in forensic psychiatric hospitals.\protect\end{revision}
 
 
 \bibliographystyle{apacite}
-\bibliography{references}
+\bibliography{references, references.bib}
 
 \newpage
 \appendix
