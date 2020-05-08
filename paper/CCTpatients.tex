@@ -39,8 +39,10 @@
 \renewcommand\AB@affilsepx{, \protect\Affilfont}% no newline after each affiliation
 \makeatother
 
+% used for revision
 \newenvironment{revision}{\color{black}}{\color{black}}
-\newenvironment{revisionN}{\color{teal}}{\color{black}}
+\newenvironment{revisionN}{\color{black}}{\color{black}}
+%\newenvironment{revisionN}{\color{teal}}{\color{black}}
 \input{myCommands.tex}
 
 \newcommand{\osflink}{\url{https://osf.io/jkv38/}}
@@ -249,7 +251,10 @@ As prior distribution on the latent constructs $\FactorScore_{\Ipatient\Ilatent}
 \subsubsection*{Extension III: Patient and Rater Information}
 The third extension adds background information about raters and patients to the LTRM. This helps the model to capture that, for instance, patients with a pedophilic disorder are typically less aggressive than murderers. Discrete patient characteristics, such as criminal record,  and rater characteristics are captured by introducing separate parameters of the group-level distributions for each level of the discrete characteristic. For example, the mean of the group-level distribution of the aggressiveness scale is estimated separately for murderers and patients with a pedophilic disorder. More formally, background information is represented by a categorical indicator $\PatientCovariate_{\Ipatient}$ that takes on values $1$ through $\TdiscreteP$ for each patient $\Ipatient$. The group-level distribution for factor scores then becomes $\FactorScore_{\Ipatient\Ilatent}~\sim~\dnorm{\mu_{\PatientCovariate_\Ipatient\Ilatent}}{\sigma_{\PatientCovariate_\Ipatient\Ilatent}}$.
 
- Rater characteristics are denoted $\RaterCovariate_\Irater$ and are incorporated in similar manner. Rater characteristics influence the group-level distributions of rater-specific parameters, which yields $\RaterShift_\Irater \sim \dnorm{\mu_{\RaterCovariate_\Irater}}{\sigma_{\RaterCovariate_\Irater}}$. For instance, this could capture that clinicians give more lenient ratings than psychiatrists.
+Rater characteristics are denoted $\RaterCovariate_\Irater$ and are incorporated in similar manner. Rater characteristics influence the group-level distributions of rater-specific parameters, which yields $\RaterShift_\Irater \sim \dnorm{\mu_{\RaterCovariate_\Irater}}{\sigma_{\RaterCovariate_\Irater}}$. For instance, this could capture that clinicians give more lenient ratings than psychiatrists.
+\begin{revisionN}%
+Similarly, the group-level distribution of $\RaterScale_\Irater$ could also be modeled as a function of rater characteristics. However, we did not include this in the model as there was no empirical observation that implies the scale parameters differ across groups of raters.
+\end{revisionN}
 
 In the simulation studies, we restrict the analysis to discrete background information. However, continuous background information could also be used. Consider for instance the time a patient is committed to a psychiatric hospital, $\mathrm{Time}_\Ipatient$.  This information can be added as a regression on the mean of the group-level distribution. Thus, $\FactorScore_{\Ipatient\Ilatent} \sim \dnorm{\mu_{\PatientCovariate_\Ipatient\Ilatent} + \nu\,\mathrm{Time}_\Ipatient}{\sigma_{\PatientCovariate_\Ipatient\Ilatent}}$, where $\nu$ is the regression coefficient from the time a patient is committed $\mathrm{Time}_\Ipatient$ on the mean of the group-level distribution.
 
